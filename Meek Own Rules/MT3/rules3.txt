@@ -1,0 +1,27 @@
+//---Action once touch sensor 3 is activated
+On touch3#touch3=1 do
+  If [meek#switch3]=0 and [meek#nightscene]=0
+    TaskValueSet 2,3,1
+    neopixel,3,0,255,0 // GREEN
+    Publish milight/0xAAA1/rgb_cct/0,'{"state":"ON", "brightness": 255, "kelvin": 200}'
+    Publish homeassistant/kitchensink/switch,ON
+    //GPIO,4,1
+    Tone,0,1300,50
+
+  elseif [meek#switch3]=0 and [meek#nightscene]=1
+    TaskValueSet 2,3,1
+    neopixel,3,0,255,0 // GREEN
+    Publish milight/0xAAA1/rgb_cct/0,{"state":"ON", "brightness": 20}
+    Publish homeassistant/kitchensink/switch,ON
+    //GPIO,4,1
+    Tone,0,1300,50
+
+  elseif [meek#switch3]=1
+    TaskValueSet 2,3,0
+    neopixel,3,255,0,0 // RED
+    Publish milight/0xAAA1/rgb_cct/0,{"state":"OFF"}
+    Publish homeassistant/kitchensink/switch,OFF
+    //GPIO,4,0
+    Tone,0,1300,50
+  Endif
+Endon
