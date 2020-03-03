@@ -1,0 +1,62 @@
+//---Action once touch sensor is activated
+On Touch#Button=1 do
+  If [Meek#Touch]=0 and [Meek#ResetTouch]=0
+    GPIO,4,1
+    TaskValueSet 3,1,1
+    TaskValueSet 3,4,1
+    Neopixel,1,50,0,50
+    TimerSet,6,10
+    Tone,15,1300,50
+  Else
+    If [Meek#ResetTouch]=0
+    GPIO,4,0
+    TaskValueSet 3,1,0
+    Neopixel,1,50,50,50
+    Tone,15,1300,50
+  Endif
+Endon
+
+//---"EVENT,Toggle", Toggles Lights On and Off ; http://<espeasyip>/control?cmd=event,toggle
+On toggle do
+  If [Meek#Touch]=0
+    GPIO,4,1
+    TaskValueSet 3,1,1
+    Neopixel,1,50,0,50
+    Tone,15,1300,50
+  Else
+    GPIO,4,0
+    TaskValueSet 3,1,0
+    Neopixel,1,50,50,50
+    Tone,15,1300,50
+  Endif
+Endon
+
+//---REBOOT Device by longpressing Touch Button, while lights are been tuned on
+On Rules#Timer=6 do
+  If [Meek#REBOOT]=1
+    Neopixel,1,0,10,0
+    Reboot
+  Endif
+Endon
+
+On Touch#Button=0 do
+  TimerSet,6,0
+  TaskValueSet 3,4,0
+Endon
+//---REBOOT Device by longpressing Touch Button, while lights are been tuned on
+
+
+
+//---"EVENT,LightsOff", Turns Light(s) Off ; http://<espeasyip>/control?cmd=event,LightsOff
+On LightsOff do
+  GPIO,4,0
+  TaskValueSet 3,1,0
+  Neopixel,1,50,50,50
+Endon
+
+//---"EVENT,LightsOn", Turns Light(s) On ; http://<espeasyip>/control?cmd=event,LightsOn
+On LightsOn do
+  GPIO,4,1
+  TaskValueSet 3,1,1
+  Neopixel,1,50,0,50
+Endon

@@ -1,0 +1,28 @@
+//---Action once touch sensor 3 is activated
+On Touch3#Button3=1 do
+  If [Meek#Switch3]=0
+    GPIO,4,1
+    TaskValueSet 2,3,1
+    Neopixel,3,25,0,25
+    Tone,0,1300,50
+  Else
+    GPIO,4,0
+    TaskValueSet 2,3,0
+    Neopixel,3,25,25,25
+    Tone,0,1300,50
+  Endif
+Endon
+
+On toggle3 do
+  If [Meek#Switch3]=0
+    GPIO,4,1
+    TaskValueSet 2,3,1
+    Neopixel,3,25,0,25
+    Tone,0,1300,50
+  Else
+    GPIO,4,0
+    TaskValueSet 2,3,0
+    Neopixel,3,25,25,25
+    Tone,0,1300,50
+  Endif
+Endon
