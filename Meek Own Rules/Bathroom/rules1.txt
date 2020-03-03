@@ -1,0 +1,40 @@
+//---Action once touch sensor 1 is activated
+On touch1#touch1=1 do
+  If [meek#switch1]=0 and [meek#nightscene]=0
+    TaskValueSet 8,1,1
+    neopixel,1,0,25,0 // GREEN
+    Publish milight/0xAAAD/rgb_cct/0,{"state":"ON", "brightness": 255}
+    Publish home-assistant/bathroom/switch,ON
+    //GPIO,4,1
+
+  elseif [meek#switch1]=0 and [meek#nightscene]=1
+    TaskValueSet 8,1,1
+    neopixel,1,0,25,0 // GREEN
+    Publish milight/0xAAAD/rgb_cct/0,{"state":"ON", "brightness": 20}
+    Publish home-assistant/bathroom/switch,ON
+    //GPIO,4,1
+
+  elseif [meek#switch1]=1
+    TaskValueSet 8,1,0
+    neopixel,1,25,0,0 // RED
+    Publish milight/0xAAAD/rgb_cct/0,{"state":"OFF"}
+    Publish home-assistant/bathroom/switch,OFF
+    //GPIO,4,0
+  Endif
+Endon
+
+On toggle1 do
+  If [meek#switch1]=0
+    TaskValueSet 8,1,1
+    neopixel,1,0,25,0 // GREEN
+    Publish milight/0xAAAD/rgb_cct/0,'{"state":"ON", "brightness": 255}'
+    Publish home-assistant/bathroom/switch,ON
+    //GPIO,4,1
+  Else
+    TaskValueSet 8,1,0
+    neopixel,1,25,0,0 // RED
+    Publish milight/0xAAAD/rgb_cct/0,'{"state":"OFF"}'
+    Publish home-assistant/bathroom/switch,OFF
+    //GPIO,4,0
+  Endif
+Endon

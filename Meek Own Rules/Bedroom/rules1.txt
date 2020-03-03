@@ -1,0 +1,37 @@
+//---Action once touch sensor 1 is activated
+On touch1#touch1=1 do
+  If [meek#switch1]=0 and [meek#nightscene]=0
+    TaskValueSet 8,1,1
+    neopixel,1,0,25,0 // GREEN
+    Publish milight/0xAABA/rgb_cct/1,'{"state":"ON", "brightness": 255, "kelvin":200}'
+    Publish home-assistant/MeekBedroom/Meek/Switch1,ON
+
+  elseif [meek#switch1]=0 and [meek#nightscene]=1
+    TaskValueSet 8,1,1
+    neopixel,1,0,25,0 // GREEN
+    Publish milight/0xAABA/rgb_cct/1,'{"state":"ON", "brightness": 20}'
+    Publish home-assistant/MeekBedroom/Meek/Switch1,ON
+    //GPIO,4,1
+    //Tone,0,1300,50
+
+  Else
+    TaskValueSet 8,1,0
+    neopixel,1,25,0,0 // RED
+    Publish milight/0xAABA/rgb_cct/1,'{"state":"OFF"}'
+    Publish home-assistant/MeekBedroom/Meek/Switch1,OFF
+  Endif
+Endon
+
+On toggle1 do
+  If [meek#switch1]=0
+    TaskValueSet 8,1,1
+    neopixel,1,0,25,0 // GREEN
+    Publish milight/0xAABA/rgb_cct/1,'{"state":"ON", "brightness": 255, "kelvin":200}'
+    Publish home-assistant/MeekBedroom/Meek/Switch1,ON
+  Else
+    TaskValueSet 8,1,0
+    neopixel,1,25,0,0 // RED
+    Publish milight/0xAABA/rgb_cct/1,'{"state":"OFF"}'
+    Publish home-assistant/MeekBedroom/Meek/Switch1,OFF
+  Endif
+Endon

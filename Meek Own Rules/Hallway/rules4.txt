@@ -1,0 +1,58 @@
+//---START : Boot Initialization and calibration commands for the onboard Touch IC
+//---Be Aware that amendments on the code below, might result in unresponsive Touch Button
+On System#Boot do
+  GPIO,16,0
+  Neopixel,1,0,0,150 // BLUE
+  TimerSet,8,5
+Endon
+
+On Rules#Timer=8 do
+  GPIO,16,1
+  Neopixel,1,50,0,0 // RED
+  TimerSet,7,2
+Endon
+
+On Rules#Timer=7 do
+  TaskValueSet 3,3,0
+Endon
+//---END : Boot Initialization and calibration commands for the onboard Touch IC
+
+//---(Re-)Calibration Touch Sensor
+On CalibrateTouch do
+  TaskValueSet 3,3,1
+  GPIO,16,0
+  TimerSet,8,3
+  Neopixel,1,50,0,0 // RED
+Endon
+
+//---"EVENT-ResetWiFi" Reset Wi-Fi credentials ; 
+On resetwifi do
+  WifiSSID
+  WifiKey
+  Reboot
+  Save
+Endon
+
+On StarWars do 
+  RTTTL,15:d=4,o=5,b=80:8d.,8d.,8d.,8a-4,16f,8d.,8a-4,16f,d.,32p,8a.,8a.,8a.,8a-,16f,8c-.,8a-4,16f,d.,32p
+Endon
+
+On Batman do 
+  RTTTL,15:d=8,o=5,b=180:b,b,a-,a-,a,a,a-,a-,b,b,a-,a-,a,a,a-,a-,4b,p,4b
+Endon
+
+on nightsceneoff do
+     TaskValueSet 8,4,0
+endon
+
+on nightsceneon do
+     TaskValueSet 8,4,1
+endon
+
+on sensoron do
+     neopixel,1,255,255,0 // YELLOW
+endon
+
+on sensoroff do
+     neopixel,1,255,0,0 // RED
+endon
