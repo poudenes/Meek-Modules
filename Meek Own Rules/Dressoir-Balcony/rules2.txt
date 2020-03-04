@@ -1,36 +1,40 @@
-//---Action once touch sensor 2 is activated
+//---Action once touch sensor 1 is activated
 On touch2#touch2=1 do
-  If [meek#switch2]=0
-    TaskValueSet 8,2,1
+  If [meek#switch2]=0 and [meek#nightscene]=0
+    TaskValueSet 2,2,1
     neopixel,2,0,255,0 // GREEN
-    //Publish milight/0xAAA4/rgb_cct/1,{"state":"ON","brightness":100}
-    Publish home-assistant/balcony/switch,ON
-    //GPIO,4,1
-    //Tone,0,1300,50
-  Else
-    TaskValueSet 8,2,0
+    Publish milight/0xAAA4/rgb_cct/1,'{"state":"ON", "brightness": 255, "kelvin": 100}'
+    Publish homeassistant/balcony/switch,1
+    Tone,0,1300,50
+
+  elseif [meek#switch2]=0 and [meek#nightscene]=1
+    TaskValueSet 2,2,1
+    neopixel,2,0,255,0 // GREEN
+    Publish milight/0xAAA4/rgb_cct/1,'{"state":"ON", "brightness": 20}'
+    Publish homeassistant/balcony/switch,1
+    Tone,0,1300,50
+
+  elseif [meek#switch2]=1
+    TaskValueSet 2,2,0
     neopixel,2,255,0,0 // RED
-    //Publish milight/0xAAA4/rgb_cct/1,{"state":"OFF"}
-    Publish home-assistant/balcony/switch,OFF
-    //GPIO,4,0
-    //Tone,0,1300,50
+    Publish milight/0xAAA4/rgb_cct/1,'{"state":"OFF"}'
+    Publish homeassistant/balcony/switch,0
+    Tone,0,1300,50
   Endif
 Endon
 
-On toggle2 do
-  If [meek#switch2]=0
-    TaskValueSet 8,2,1
+On homeassistant#switch2=1 do
+  If [meek#switch2]=0 and
+    TaskValueSet 2,2,1
     neopixel,2,0,255,0 // GREEN
-    //Publish milight/0xAAA4/rgb_cct/1,{"state":"ON","brightness":100}
-    Publish home-assistant/balcony/switch,ON
-    //GPIO,4,1
-    //Tone,0,1300,50
-  Else
-    TaskValueSet 8,2,0
+    Publish milight/0xAAA4/rgb_cct/1,'{"state":"ON", "brightness": 255, "kelvin": 200}'
+  Endif
+Endon
+
+On homeassistant#switch2=0 do
+  If [meek#switch2]=1 and
+    TaskValueSet 2,2,0
     neopixel,2,255,0,0 // RED
-    //Publish milight/0xAAA4/rgb_cct/1,{"state":"OFF"}
-    Publish home-assistant/balcony/switch,OFF
-    //GPIO,4,0
-    //Tone,0,1300,50
+    Publish milight/0xAAA4/rgb_cct/1,'{"state":"OFF"}'
   Endif
 Endon

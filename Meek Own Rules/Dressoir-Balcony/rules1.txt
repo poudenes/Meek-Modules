@@ -1,30 +1,40 @@
 //---Action once touch sensor 1 is activated
 On touch1#touch1=1 do
   If [meek#switch1]=0 and [meek#nightscene]=0
-    TaskValueSet 8,1,1
+    TaskValueSet 2,1,1
     neopixel,1,0,255,0 // GREEN
-    //Publish milight/0xAAAF/rgb_cct/0,'{"state":"ON", "brightness": 255}'
-    Publish home-assistant/dressoir/switch,ON
-//curl -X POST -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIwYmMyZjA1NmZmODc0NTFhOTIyOTIxMjc5MjViOTk5OCIsImlhdCI6MTU3MzgwMTUxOCwiZXhwIjoxODg5MTYxNTE4fQ.r8pJpUeoOK_IDsD_rL1hcU5XH0J_uIGXOIIaVbm8wX4" -H "Content-Type: application/json" -d '{"entity_id": "switch.meek_dressoir"}' https://rpi.oudenes.photography/api/services/switch/turn_on
-    //GPIO,4,1
-    //Tone,0,1300,50
+    Publish milight/0xAAAF/rgb_cct/0,'{"state":"ON", "brightness": 255, "kelvin": 100}'
+    Publish homeassistant/dressoir/switch,1
+    Tone,0,1300,50
 
   elseif [meek#switch1]=0 and [meek#nightscene]=1
-    TaskValueSet 8,1,1
+    TaskValueSet 2,1,1
     neopixel,1,0,255,0 // GREEN
-    //Publish milight/0xAAAF/rgb_cct/0,'{"state":"ON", "brightness": 20}'
-    Publish home-assistant/dressoir/switch,ON
-//curl -X POST -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIwYmMyZjA1NmZmODc0NTFhOTIyOTIxMjc5MjViOTk5OCIsImlhdCI6MTU3MzgwMTUxOCwiZXhwIjoxODg5MTYxNTE4fQ.r8pJpUeoOK_IDsD_rL1hcU5XH0J_uIGXOIIaVbm8wX4" -H "Content-Type: application/json" -d '{"entity_id": "switch.meek_dressoir"}' https://rpi.oudenes.photography/api/services/switch/turn_on
-    //GPIO,4,1
-    //Tone,0,1300,50
+    Publish milight/0xAAAF/rgb_cct/0,'{"state":"ON", "brightness": 20}'
+    Publish homeassistant/dressoir/switch,1
+    Tone,0,1300,50
 
   elseif [meek#switch1]=1
-    TaskValueSet 8,1,0
+    TaskValueSet 2,1,0
     neopixel,1,255,0,0 // RED
-    //Publish milight/0xAAAF/rgb_cct/0,{"state":"OFF"}
-    Publish home-assistant/dressoir/switch,OFF
-//curl -X POST -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIwYmMyZjA1NmZmODc0NTFhOTIyOTIxMjc5MjViOTk5OCIsImlhdCI6MTU3MzgwMTUxOCwiZXhwIjoxODg5MTYxNTE4fQ.r8pJpUeoOK_IDsD_rL1hcU5XH0J_uIGXOIIaVbm8wX4" -H "Content-Type: application/json" -d '{"entity_id": "switch.meek_dressoir"}' https://rpi.oudenes.photography/api/services/switch/turn_on
-    //GPIO,4,0
-    //Tone,0,1300,50
+    Publish milight/0xAAAF/rgb_cct/0,'{"state":"OFF"}'
+    Publish homeassistant/dressoir/switch,0
+    Tone,0,1300,50
+  Endif
+Endon
+
+On homeassistant#switch1=1 do
+  If [meek#switch1]=0 and
+    TaskValueSet 2,1,1
+    neopixel,1,0,255,0 // GREEN
+    Publish milight/0xAAAF/rgb_cct/0,'{"state":"ON", "brightness": 255, "kelvin": 200}'
+  Endif
+Endon
+
+On homeassistant#switch1=0 do
+  If [meek#switch1]=1 and
+    TaskValueSet 2,1,0
+    neopixel,1,255,0,0 // RED
+    Publish milight/0xAAAF/rgb_cct/0,'{"state":"OFF"}'
   Endif
 Endon
