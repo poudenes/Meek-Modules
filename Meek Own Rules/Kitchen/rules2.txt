@@ -23,12 +23,16 @@ On touch2#touch2=1 do
   Endif
 Endon
 
-On HA#Switch2=1 do
-  TaskValueSet 2,2,1
-  neopixel,2,0,255,0 // GREEN
+On homeassistant#switch2=1 do
+  If [meek#switch2]=0 and
+    TaskValueSet 2,2,1
+    neopixel,2,0,255,0 // GREEN
+  Endif
 Endon
 
-On HA#Switch2=0 do
-  TaskValueSet 2,2,0
-  neopixel,2,255,0,0 // RED
+On homeassistant#switch2=0 do
+  If [meek#switch2]=1 and
+    TaskValueSet 2,2,0
+    neopixel,2,255,0,0 // RED
+  Endif
 Endon
