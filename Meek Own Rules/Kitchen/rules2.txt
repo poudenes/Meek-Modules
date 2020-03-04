@@ -3,22 +3,32 @@ On touch2#touch2=1 do
   If [meek#switch2]=0 and [meek#nightscene]=0
     TaskValueSet 2,2,1
     neopixel,2,0,255,0 // GREEN
-    Publish homeassistant/cooking/switch,ON
+    Publish homeassistant/cooking/switch,1
     //GPIO,4,1
     //Tone,0,1300,50
 
   elseif [meek#switch2]=0 and [meek#nightscene]=1
     TaskValueSet 2,2,1
     neopixel,2,0,255,0 // GREEN
-    Publish homeassistant/cooking/switch,ON
+    Publish homeassistant/cooking/switch,1
     //GPIO,4,1
     //Tone,0,1300,50
 
   elseif [meek#switch2]=1
     TaskValueSet 2,2,0
     neopixel,2,255,0,0 // RED
-    Publish homeassistant/cooking/switch,OFF
+    Publish homeassistant/cooking/switch,0
     //GPIO,4,0
     //Tone,0,1300,50
   Endif
+Endon
+
+On HA#Switch2=1 do
+  TaskValueSet 2,2,1
+  neopixel,2,0,255,0 // GREEN
+Endon
+
+On HA#Switch2=0 do
+  TaskValueSet 2,2,0
+  neopixel,2,255,0,0 // RED
 Endon

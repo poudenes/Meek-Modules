@@ -4,7 +4,7 @@ On touch3#touch3=1 do
     TaskValueSet 2,3,1
     neopixel,3,0,255,0 // GREEN
     Publish milight/0xAAA1/rgb_cct/0,'{"state":"ON", "brightness": 255, "kelvin": 200}'
-    Publish homeassistant/kitchensink/switch,ON
+    Publish homeassistant/kitchenseeling/switch,1
     //GPIO,4,1
     Tone,0,1300,50
 
@@ -12,7 +12,7 @@ On touch3#touch3=1 do
     TaskValueSet 2,3,1
     neopixel,3,0,255,0 // GREEN
     Publish milight/0xAAA1/rgb_cct/0,{"state":"ON", "brightness": 20}
-    Publish homeassistant/kitchensink/switch,ON
+    Publish homeassistant/kitchenseeling/switch,1
     //GPIO,4,1
     Tone,0,1300,50
 
@@ -20,8 +20,18 @@ On touch3#touch3=1 do
     TaskValueSet 2,3,0
     neopixel,3,255,0,0 // RED
     Publish milight/0xAAA1/rgb_cct/0,{"state":"OFF"}
-    Publish homeassistant/kitchensink/switch,OFF
+    Publish homeassistant/kitchenseeling/switch,0
     //GPIO,4,0
     Tone,0,1300,50
   Endif
+Endon
+
+On HA#Switch=1 do
+  TaskValueSet 2,3,1
+  neopixel,3,0,255,0 // GREEN
+Endon
+
+On HA#Switch=0 do
+  TaskValueSet 2,3,0
+  neopixel,3,255,0,0 // RED
 Endon
