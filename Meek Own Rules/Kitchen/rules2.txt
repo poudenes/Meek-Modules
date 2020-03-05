@@ -1,13 +1,13 @@
 //---Action once touch sensor 2 is activated
 On touch2#touch2=1 do
-  If [meek#switch2]=0 and [meek#nightscene]=0
+  If [meek#switch2]=0 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,2,1
     neopixel,2,0,255,0 // GREEN
     Publish homeassistant/cooking/switch,1
     //GPIO,4,1
     //Tone,0,1300,50
 
-  elseif [meek#switch2]=0 and [meek#nightscene]=1
+  elseif [meek#switch2]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,2,1
     neopixel,2,0,255,0 // GREEN
     Publish homeassistant/cooking/switch,1
