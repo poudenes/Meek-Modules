@@ -1,5 +1,13 @@
 //---START : Boot Initialization and calibration commands for the onboard Touch IC
 //---Be Aware that amendments on the code below, might result in unresponsive Touch Button
+On homeassistant#scenegoodnight=1 do
+  NeopixelALL,50,0,0 // RED
+Endon
+
+On homeassistant#scenegoodnight=0 do
+  NeopixelALL,255,0,0 // RED
+Endon
+
 On System#Boot do
   GPIO,16,0
   NeopixelALL,50,0,0

@@ -10,7 +10,7 @@ On touch1#touch1=1 do
 
   elseif [meek#switch1]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,1,1
-    neopixel,1,0,255,0 // GREEN
+    neopixel,1,0,50,0 // GREEN
     Publish milight/0xAAA2/rgb_cct/0,'{"state":"ON", "brightness": 20}'
     Publish homeassistant/kitchenseeling/switch,1
     //GPIO,4,1
