@@ -1,12 +1,12 @@
 On touch1#touch1=1 do
-  If [meek#switch1]=0 and and [homeassistant#scenegoodnight]=0
+  If [meek#switch1]=0 and [homeassistant#scenegoodnight]=0
     gpio 4,1
     TaskValueSet 8,1,1
     neopixel,1,0,255,0 // GREEN
     Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 255, "kelvin": 100}'
     Publish homeassistant/toilet/switch,1
 
-  elseif [meek#switch1]=0 and and [homeassistant#scenegoodnight]=1
+  elseif [meek#switch1]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 8,1,1
     neopixel,1,0,50,0 // GREEN
     Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 20}'
