@@ -1,0 +1,37 @@
+On Presence#Detection=1 do
+  If [Meek#Status]=0 or [Meek#Status]=1
+    GPIO,4,1
+    Neopixel,1,150,0,50
+    TaskValueSet 3,1,1
+    TimerSet,1,45              //--- First timer if Presence is detected, you can adjust the last value(e.g.45 seconds) on this line, as you wish
+    TimerSet,2,0
+    Neopixel,1,35,0,2
+  Endif
+Endon
+
+On Rules#Timer=1 do
+  Neopixel,1,7,0,50
+  TimerSet,2,15             //--- Second timer triggered by the 1'st timer, you can adjust the last value(e.g.25 seconds) on this line, as you wish
+Endon
+
+On Rules#Timer=2 do
+    Neopixel,1,15,5,5
+    TaskValueSet 3,1,0
+    GPIO,4,0
+Endon
+
+On Rules#Timer=3 do
+  If [Meek#Status]=11
+    Neopixel,1,0,50,50
+    TimerSet,1,5
+    TimerSet,2,0
+    TaskValueSet 3,1,1
+    rtttl,15:d=10,o=6,b=180,g,e,c
+  Else
+    Neopixel,1,0,50,0
+    TaskValueSet 3,1,0
+    TimerSet,1,0
+    TimerSet,2,0
+    rtttl,15:d=10,o=6,b=180,c,e,g
+  Endif
+Endon

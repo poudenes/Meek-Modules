@@ -1,0 +1,31 @@
+//---Meek Status :
+//---0 = Presence detection ON, Light OFF
+//---1 = Presence detection ON, Light ON
+//---10 = Presence detection OFF, Light OFF
+//---11 = Presence detection OFF, Light ON
+
+//---Action once touch sensor is activated
+On Touch#Button=1 do
+  If [Meek#Status]=1 or [Meek#Status]=11
+    GPIO,4,0                         //--- Triac Output on GPIO4, 1=ON, 0=OFF
+    TaskValueSet 3,1,10
+    Neopixel,1,15,15,15            //---Color scheme in Hexadecimal RRR,GGG,BBB (R=Red, B=Blue, G=Green value's from 0 till 255)
+    TimerSet,2,0                   //--- Reset Presence detection Timers
+    TimerSet,1,0                   //--- Reset Presence detection Timers
+    TimerSet,3,3                   //--- Timerset to enable Precence Detection
+    Tone,15,1300,50            //---Touch Button Sound on GPIO15 - disable by  "//" in front of this row
+  Else
+    GPIO,4,1
+    TaskValueSet 3,1,11
+    Neopixel,1,50,0,50
+    TimerSet,2,0
+    TimerSet,1,0
+    TimerSet,3,3
+    Tone,15,1300,50
+  Endif
+Endon
+
+//---Timer reset for enabling Presence Detection
+On Touch#Button=0 do
+  TimerSet,3,0
+Endon

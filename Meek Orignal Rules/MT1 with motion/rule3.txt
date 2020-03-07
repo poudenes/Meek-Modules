@@ -1,0 +1,45 @@
+on LightsOff do
+gpio 4,0
+TaskValueSet 3,1,10
+nfx,one,1,ff0000
+nfx,all,090909,300
+timerSet,2,0
+timerSet,1,0
+endon
+
+on LightsOn do
+gpio 4,1
+TaskValueSet 3,1,11
+nfx,one,1,ff0000
+nfx,all,100010,300
+timerSet,2,0
+timerSet,1,0
+endon
+
+on EnableDetection do
+TaskValueSet 3,1,0
+nfx,one,1,100000
+endon
+
+on DisableDetection do
+TaskValueSet 3,1,10
+nfx,one,1,101010
+endon
+
+on toggle do
+if [Meek#Status]=0 or [Meek#Status]=10
+gpio 4,1
+TaskValueSet 3,1,11
+nfx,one,1,ff0000
+nfx,all,100010,300
+timerSet,2,0
+timerSet,1,0
+else
+gpio 4,0
+TaskValueSet 3,1,10
+nfx,one,1,ff0000
+nfx,all,090909,300
+timerSet,2,0
+timerSet,1,0
+endif
+endon
