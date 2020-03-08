@@ -3,7 +3,7 @@ On touch1#touch1=1 do
   If [meek#switch1]=0 and [meek#nightscene]=0
     TaskValueSet 2,1,1
     neopixel,1,0,255,0 // GREEN
-    Publish milight/0xAAA3/rgb_cct/1,'{"state":"ON", "brightness": 255, "kelvin": 100}'
+    Publish milight/0xAAA3/rgb_cct/1,'{"state":"ON", "brightness": 255}'
     Publish home-assistant/hallway/switch,1
     Tone,0,1300,50
 
@@ -27,7 +27,7 @@ On homeassistant#switch1=1 do
   If [meek#switch1]=0 and
     TaskValueSet 2,1,1
     neopixel,1,0,255,0 // GREEN
-    Publish milight/0xAAA3/rgb_cct/1,'{"state":"ON", "brightness": 255, "kelvin":100}'
+    Publish milight/0xAAA3/rgb_cct/1,'{"state":"ON", "brightness": 255}'
   Endif
 Endon
 

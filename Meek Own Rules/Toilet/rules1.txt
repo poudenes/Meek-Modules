@@ -3,7 +3,7 @@ On touch1#touch1=1 do
     gpio 4,1
     TaskValueSet 8,1,1
     neopixel,1,0,255,0 // GREEN
-    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 255, "kelvin": 100}'
+    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 255'
     Publish homeassistant/toilet/switch,1
 
   elseif [meek#switch1]=0 and [homeassistant#scenegoodnight]=1
@@ -34,12 +34,12 @@ On homeassistant#switch1=1 do
   If [meek#switch1]=0 and [homeassistant#scenegoodnight]=0
     TaskValueSet 8,1,1
     neopixel,1,0,0,255 // BLUE
-    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 255, "kelvin": 100}'
+    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 255}'
 
   elseif [meek#switch1]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 8,1,1
     neopixel,1,0,0,50 // BLUE
-    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 255, "kelvin": 100}'
+    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 255}'
   Endif
 Endon
 
