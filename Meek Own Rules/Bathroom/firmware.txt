@@ -1,0 +1,8 @@
+Build:⋄	20104 - Mega
+System Libraries:⋄	ESP82xx Core 2.6.0-dev, NONOS SDK 2.2.2-dev(38a443e), LWIP: 2.1.2 PUYA support
+Git Build:⋄	mega-20190928
+Plugins:⋄	79 [Normal] [Testing] [Development]
+Build Md5:	e5168df23de4c9b4c4d9b0a5fd6577a1
+Md5 check:	passed.
+Build Time:⋄	Sep 28 2019 02:32:02
+Binary Filename:⋄	ESP_Easy_mega-20190928_dev_ESP8266_4M1M.bin
