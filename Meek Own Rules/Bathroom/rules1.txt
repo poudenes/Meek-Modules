@@ -8,7 +8,7 @@ On touch1#touch1=1 do
 
   elseif [meek#switch1]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,1,1
-    neopixel,1,0,50,0 // GREEN
+    neopixel,1,0,20,0 // GREEN
     Publish milight/0xAAAD/rgb_cct/0,{"state":"ON", "brightness": 20}
     Publish homeassistant/bathroom/switch,1
     Tone,0,1300,50
@@ -22,7 +22,7 @@ On touch1#touch1=1 do
 
   elseif [meek#switch1]=1 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,1,1
-    neopixel,1,50,0,0 // GREEN
+    neopixel,1,20,0,0 // GREEN
     Publish milight/0xAAAD/rgb_cct/0,{"state":"OFF"}
     Publish homeassistant/bathroom/switch,0
     Tone,0,1300,50
@@ -37,7 +37,7 @@ On homeassistant#switch1=1 do
 
   elseif [meek#switch1]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,1,1
-    neopixel,1,0,0,50 // BLUE
+    neopixel,1,0,0,20 // BLUE
     Publish milight/0xAAAD/rgb_cct/0,{"state":"ON", "brightness": 20}
   Endif
 Endon
@@ -50,7 +50,7 @@ On homeassistant#switch1=0 do
 
   elseif [meek#switch1]=1 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,1,0
-    neopixel,1,50,0,0 // RED
+    neopixel,1,20,0,0 // RED
     Publish milight/0xAAAD/rgb_cct/0,{"state":"OFF"}
   Endif
 Endon

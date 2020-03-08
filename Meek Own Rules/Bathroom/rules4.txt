@@ -1,15 +1,22 @@
 //---START : Boot Initialization and calibration commands for the onboard Touch IC
 //---Be Aware that amendments on the code below, might result in unresponsive Touch Button
+On homeassistant#scenegoodnight=1 do
+  NeopixelALL,50,0,0 // RED
+Endon
+
+On homeassistant#scenegoodnight=0 do
+  NeopixelALL,255,0,0 // RED
+Endon
 
 On System#Boot do
   GPIO,16,0
-  Neopixel,1,0,0,25 // BLUE
+  NeopixelAll,50,0,0
   TimerSet,8,5
 Endon
 
 On Rules#Timer=8 do
   GPIO,16,1
-  Neopixel,1,25,0,0 // RED
+  NeopixelAll,50,50,50
   TimerSet,7,2
 Endon
 
@@ -23,7 +30,7 @@ On CalibrateTouch do
   TaskValueSet 3,3,1
   GPIO,16,0
   TimerSet,8,3
-  Neopixel,1,25,0,0 // RED
+  Neopixel,1,50,0,0
 Endon
 
 //---"EVENT-ResetWiFi" Reset Wi-Fi credentials ;
@@ -41,19 +48,3 @@ Endon
 On Batman do
   RTTTL,15:d=8,o=5,b=180:b,b,a-,a-,a,a,a-,a-,b,b,a-,a-,a,a,a-,a-,4b,p,4b
 Endon
-
-on nightsceneoff do
-     TaskValueSet 8,4,0
-endon
-
-on nightsceneon do
-     TaskValueSet 8,4,1
-endon
-
-on sensoron do
-     neopixel,1,25,25,0 // YELLOW
-endon
-
-on sensoroff do
-     neopixel,1,25,0,0 // RED
-endon

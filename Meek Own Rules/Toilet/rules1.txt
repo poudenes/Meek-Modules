@@ -3,13 +3,13 @@ On touch1#touch1=1 do
     gpio 4,1
     TaskValueSet 8,1,1
     neopixel,1,0,255,0 // GREEN
-    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 255'
+    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 255}'
     Publish homeassistant/toilet/switch,1
 
   elseif [meek#switch1]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 8,1,1
     neopixel,1,0,50,0 // GREEN
-    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 20}'
+    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 60}'
     Publish homeassistant/toilet/switch,1
     //GPIO,4,1
     //Tone,0,1300,50
