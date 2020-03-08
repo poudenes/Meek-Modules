@@ -1,22 +1,28 @@
-//---Action once touch sensor 1 is activated
 On touch1#touch1=1 do
-  If [meek#switch1]=0 and [meek#nightscene]=0
+  If [meek#switch1]=0 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,1,1
     neopixel,1,0,255,0 // GREEN
-    Publish milight/0xAABA/rgb_cct/1,'{"state":"ON", "brightness": 255, "kelvin": 100}'
+    Publish milight/0xAABA/rgb_cct/1,'{"state":"ON", "brightness": 255}'
     Publish homeassistant/bedroom/switch,1
     Tone,0,1300,50
 
-  elseif [meek#switch1]=0 and [meek#nightscene]=1
+  elseif [meek#switch1]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,1,1
-    neopixel,1,0,255,0 // GREEN
+    neopixel,1,0,50,0 // GREEN
     Publish milight/0xAABA/rgb_cct/1,'{"state":"ON", "brightness": 20}'
     Publish homeassistant/bedroom/switch,1
     Tone,0,1300,50
 
-  elseif [meek#switch1]=1
+  elseif [meek#switch1]=1 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,1,0
     neopixel,1,255,0,0 // RED
+    Publish milight/0xAABA/rgb_cct/1,'{"state":"OFF"}'
+    Publish homeassistant/bedroom/switch,0
+    Tone,0,1300,50
+
+  elseif [meek#switch1]=1 and [homeassistant#scenegoodnight]=1
+    TaskValueSet 2,1,1
+    neopixel,1,50,0,0 // GREEN
     Publish milight/0xAABA/rgb_cct/1,'{"state":"OFF"}'
     Publish homeassistant/bedroom/switch,0
     Tone,0,1300,50
@@ -24,17 +30,27 @@ On touch1#touch1=1 do
 Endon
 
 On homeassistant#switch1=1 do
-  If [meek#switch1]=0 and
+  If [meek#switch1]=0 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,1,1
-    neopixel,1,0,255,0 // GREEN
-    Publish milight/0xAABA/rgb_cct/1,'{"state":"ON", "brightness": 255, "kelvin": 200}'
+    neopixel,1,0,0,255 // BLUE
+    Publish milight/0xAABA/rgb_cct/1,'{"state":"ON", "brightness": 255}'
+
+  elseif [meek#switch1]=0 and [homeassistant#scenegoodnight]=1
+    TaskValueSet 2,1,1
+    neopixel,1,0,0,50 // BLUE
+    Publish milight/0xAABA/rgb_cct/1,'{"state":"ON", "brightness": 20}'
   Endif
 Endon
 
 On homeassistant#switch1=0 do
-  If [meek#switch1]=1 and
+  If [meek#switch1]=1 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,1,0
     neopixel,1,255,0,0 // RED
+    Publish milight/0xAABA/rgb_cct/1,'{"state":"OFF"}'
+
+  elseif [meek#switch1]=1 and [homeassistant#scenegoodnight]=1
+    TaskValueSet 2,1,0
+    neopixel,1,50,0,0 // RED
     Publish milight/0xAABA/rgb_cct/1,'{"state":"OFF"}'
   Endif
 Endon
