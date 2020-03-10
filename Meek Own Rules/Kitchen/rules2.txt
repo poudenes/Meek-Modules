@@ -3,25 +3,25 @@ On touch2#touch2=1 do
     TaskValueSet 2,2,1
     neopixel,2,0,255,0 // GREEN
     Publish homeassistant/cooking/switch,1
-    Tone,0,1300,50
+    Tone,0,1500,10
 
   elseif [meek#switch2]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,2,1
     neopixel,2,0,50,0 // GREEN
     Publish homeassistant/cooking/switch,1
-    Tone,0,1300,50
+    Tone,0,1500,10
 
   elseif [meek#switch2]=1 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,2,0
     neopixel,2,255,0,0 // RED
     Publish homeassistant/cooking/switch,0
-    Tone,0,1300,50
+    Tone,0,1500,10
 
   elseif [meek#switch2]=1 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,2,0
     neopixel,2,50,0,0 // RED
     Publish homeassistant/cooking/switch,0
-    Tone,0,1300,50
+    Tone,0,1500,10
 
   Endif
 Endon
@@ -29,12 +29,12 @@ Endon
 On homeassistant#switch2=1 do
   If [meek#switch2]=0 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,2,1
-    neopixel,1,0,0,255 // BLUE
+    neopixel,2,0,0,255 // BLUE
     Publish homeassistant/cooking/switch,1
 
   elseif [meek#switch2]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,2,1
-    neopixel,1,0,0,50 // BLUE
+    neopixel,2,0,0,50 // BLUE
     Publish homeassistant/cooking/switch,1
   Endif
 Endon
@@ -42,12 +42,12 @@ Endon
 On homeassistant#switch2=0 do
   If [meek#switch2]=1 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,2,0
-    neopixel,1,255,0,0 // RED
+    neopixel,2,255,0,0 // RED
     Publish homeassistant/cooking/switch,0
 
   elseif [meek#switch2]=1 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,2,0
-    neopixel,1,50,0,0 // RED
+    neopixel,2,50,0,0 // RED
     Publish homeassistant/cooking/switch,0
   Endif
 Endon
