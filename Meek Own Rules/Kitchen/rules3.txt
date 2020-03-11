@@ -2,28 +2,24 @@ On touch3#touch3=1 do
   If [meek#switch3]=0 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,3,1
     neopixel,3,0,255,0 // GREEN
-    Publish milight/0xAAA1/rgb_cct/0,'{"state":"ON", "brightness": 255}'
     Publish homeassistant/kitchensink/switch,1
     Tone,0,1300,50
 
   elseif [meek#switch3]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,3,1
     neopixel,3,0,50,0 // GREEN
-    Publish milight/0xAAA1/rgb_cct/0,'{"state":"ON", "brightness": 20}'
     Publish homeassistant/kitchensink/switch,1
     Tone,0,1300,50
 
   elseif [meek#switch3]=1 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,3,0
     neopixel,3,255,0,0 // RED
-    Publish milight/0xAAA1/rgb_cct/0,'{"state":"OFF"}'
     Publish homeassistant/kitchensink/switch,0
     Tone,0,1300,50
 
   elseif [meek#switch3]=1 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,3,0
     neopixel,3,50,0,0 // RED
-    Publish milight/0xAAA1/rgb_cct/0,'{"state":"OFF"}'
     Publish homeassistant/kitchensink/switch,0
     Tone,0,1300,50
   Endif
@@ -33,12 +29,10 @@ On homeassistant#switch3=1 do
   If [meek#switch3]=0 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,3,1
     neopixel,3,0,0,255 // BLUE
-    Publish milight/0xAAA1/rgb_cct/0,'{"state":"ON", "brightness": 255}'
 
   elseif [meek#switch3]=0 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,3,1
     neopixel,3,0,0,50 // BLUE
-    Publish milight/0xAAA1/rgb_cct/0,'{"state":"ON", "brightness": 20}'
   Endif
 Endon
 
@@ -46,11 +40,9 @@ On homeassistant#switch3=0 do
   If [meek#switch3]=1 and [homeassistant#scenegoodnight]=0
     TaskValueSet 2,3,0
     neopixel,3,255,0,0 // RED
-    Publish milight/0xAAA1/rgb_cct/0,'{"state":"OFF"}'
 
   elseif [meek#switch3]=1 and [homeassistant#scenegoodnight]=1
     TaskValueSet 2,3,0
     neopixel,3,50,0,0 // RED
-    Publish milight/0xAAA1/rgb_cct/0,'{"state":"OFF"}'
   Endif
 Endon
