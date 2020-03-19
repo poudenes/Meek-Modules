@@ -1,47 +1,47 @@
 On touch1#touch1=1 do
-  If [meek#switch1]=0 and [homeassistant#scenegoodnight]=0
+  If [meek#switch1]=0 and [ha_scene#goodnight]=0
+    Publish homeassistant/meek/bathroom,1
     TaskValueSet 2,1,1
     neopixel,1,0,255,0 // GREEN
-    Publish homeassistant/bathroom/switch,1
     Tone,0,1300,50
 
-  elseif [meek#switch1]=0 and [homeassistant#scenegoodnight]=1
+  elseif [meek#switch1]=0 and [ha_scene#goodnight]=1
+    Publish homeassistant/meek/bathroom,1
     TaskValueSet 2,1,1
     neopixel,1,0,20,0 // GREEN
-    Publish homeassistant/bathroom/switch,1
     Tone,0,1300,50
 
-  elseif [meek#switch1]=1 and [homeassistant#scenegoodnight]=0
+  elseif [meek#switch1]=1 and [ha_scene#goodnight]=0
+    Publish homeassistant/meek/bathroom,0
     TaskValueSet 2,1,0
     neopixel,1,255,0,0 // RED
-    Publish homeassistant/bathroom/switch,0
     Tone,0,1300,50
 
-  elseif [meek#switch1]=1 and [homeassistant#scenegoodnight]=1
+  elseif [meek#switch1]=1 and [ha_scene#goodnight]=1
+    Publish homeassistant/meek/bathroom,0
     TaskValueSet 2,1,1
     neopixel,1,20,0,0 // GREEN
-    Publish homeassistant/bathroom/switch,0
     Tone,0,1300,50
   Endif
 Endon
 
-On homeassistant#switch1=1 do
-  If [meek#switch1]=0 and [homeassistant#scenegoodnight]=0
+On homeassistant#motion=1 do
+  If [meek#switch1]=0 and [ha_scene#goodnight]=0
     TaskValueSet 2,1,1
-    neopixel,1,0,0,255 // BLUE
+    neopixel,1,127,0,255 // PURPLE
 
-  elseif [meek#switch1]=0 and [homeassistant#scenegoodnight]=1
+  elseif [meek#switch1]=0 and [ha_scene#goodnight]=1
     TaskValueSet 2,1,1
-    neopixel,1,0,0,20 // BLUE
+    neopixel,1,54,0,107 // PURPLE
   Endif
 Endon
 
-On homeassistant#switch1=0 do
-  If [meek#switch1]=1 and [homeassistant#scenegoodnight]=0
+On homeassistant#motion=0 do
+  If [meek#switch1]=1 and [ha_scene#goodnight]=0
     TaskValueSet 2,1,0
     neopixel,1,255,0,0 // RED
 
-  elseif [meek#switch1]=1 and [homeassistant#scenegoodnight]=1
+  elseif [meek#switch1]=1 and [ha_scene#goodnight]=1
     TaskValueSet 2,1,0
     neopixel,1,20,0,0 // RED
   Endif

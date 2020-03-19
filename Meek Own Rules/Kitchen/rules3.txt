@@ -1,48 +1,22 @@
 On touch3#touch3=1 do
   If [meek#switch3]=0 and [ha_scene#goodnight]=0
+    Publish homeassistant/meek/kitchensink,1
     TaskValueSet 2,3,1
     neopixel,3,0,255,0 // GREEN
-    Publish homeassistant/meek/kitchensink,1
 
   elseif [meek#switch3]=0 and [ha_scene#goodnight]=1
+    Publish homeassistant/meek/kitchensink,1
     TaskValueSet 2,3,1
     neopixel,3,0,20,0 // GREEN
-    Publish homeassistant/meek/kitchensink,1
 
   elseif [meek#switch3]=1 and [ha_scene#goodnight]=0
-    TaskValueSet 2,3,0
-    TaskValueSet 11,4,0
-    neopixel,3,255,0,0 // RED
     Publish homeassistant/meek/kitchensink,0
-
-  elseif [meek#switch3]=1 and [ha_scene#goodnight]=1
     TaskValueSet 2,3,0
-    TaskValueSet 11,4,0
-    neopixel,3,20,0,0 // RED
-    Publish homeassistant/meek/kitchensink,0
-  Endif
-Endon
-
-On homeassistant#switch3=1 do
-  If [meek#switch3]=0 and [ha_scene#goodnight]=0
-    TaskValueSet 2,3,1
-    neopixel,3,0,0,255 // BLUE
-
-  elseif [meek#switch3]=0 and [ha_scene#goodnight]=1
-    TaskValueSet 2,3,1
-    neopixel,3,0,0,20 // BLUE
-  Endif
-Endon
-
-On homeassistant#switch3=0 do
-  If [meek#switch3]=1 and [ha_scene#goodnight]=0
-    TaskValueSet 2,3,0
-    TaskValueSet 11,4,0
     neopixel,3,255,0,0 // RED
 
   elseif [meek#switch3]=1 and [ha_scene#goodnight]=1
+    Publish homeassistant/meek/kitchensink,0
     TaskValueSet 2,3,0
-    TaskValueSet 11,4,0
     neopixel,3,20,0,0 // RED
   Endif
 Endon
