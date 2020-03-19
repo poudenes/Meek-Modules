@@ -1,53 +1,71 @@
 On touch2#touch2=1 do
-  If [meek#switch2]=0 and [homeassistant#scenegoodnight]=0
+  If [meek#switch2]=0 and [ha_scene#goodnight]=0
     TaskValueSet 2,2,1
     neopixel,2,0,255,0 // GREEN
-    Publish homeassistant/cooking/switch,1
-    Tone,0,1500,10
+    Publish homeassistant/meek/cooking,1
 
-  elseif [meek#switch2]=0 and [homeassistant#scenegoodnight]=1
+  elseif [meek#switch2]=0 and [ha_scene#goodnight]=1
     TaskValueSet 2,2,1
     neopixel,2,0,50,0 // GREEN
-    Publish homeassistant/cooking/switch,1
-    Tone,0,1500,10
+    Publish homeassistant/meek/cooking,1
 
-  elseif [meek#switch2]=1 and [homeassistant#scenegoodnight]=0
+  elseif [meek#switch2]=1 and [ha_scene#goodnight]=0
     TaskValueSet 2,2,0
     neopixel,2,255,0,0 // RED
-    Publish homeassistant/cooking/switch,0
-    Tone,0,1500,10
+    Publish homeassistant/meek/cooking,0
 
-  elseif [meek#switch2]=1 and [homeassistant#scenegoodnight]=1
+  elseif [meek#switch2]=1 and [ha_scene#goodnight]=1
     TaskValueSet 2,2,0
     neopixel,2,50,0,0 // RED
-    Publish homeassistant/cooking/switch,0
-    Tone,0,1500,10
+    Publish homeassistant/meek/cooking,0
 
   Endif
 Endon
 
 On homeassistant#switch2=1 do
-  If [meek#switch2]=0 and [homeassistant#scenegoodnight]=0
+  If [meek#switch2]=0 and [ha_scene#goodnight]=0
     TaskValueSet 2,2,1
     neopixel,2,0,0,255 // BLUE
-    Publish homeassistant/cooking/switch,1
+    Publish homeassistant/meek/cooking,1
 
-  elseif [meek#switch2]=0 and [homeassistant#scenegoodnight]=1
+  elseif [meek#switch2]=0 and [ha_scene#goodnight]=1
     TaskValueSet 2,2,1
     neopixel,2,0,0,50 // BLUE
-    Publish homeassistant/cooking/switch,1
+    Publish homeassistant/meek/cooking,1
   Endif
 Endon
 
 On homeassistant#switch2=0 do
-  If [meek#switch2]=1 and [homeassistant#scenegoodnight]=0
+  If [meek#switch2]=1 and [ha_scene#goodnight]=0
     TaskValueSet 2,2,0
     neopixel,2,255,0,0 // RED
-    Publish homeassistant/cooking/switch,0
+    Publish homeassistant/meek/cooking,0
 
-  elseif [meek#switch2]=1 and [homeassistant#scenegoodnight]=1
+  elseif [meek#switch2]=1 and [ha_scene#goodnight]=1
     TaskValueSet 2,2,0
     neopixel,2,50,0,0 // RED
-    Publish homeassistant/cooking/switch,0
+    Publish homeassistant/meek/cooking,0
+  Endif
+Endon
+
+On homeassistant#motion=1 do
+  If [meek#switch2]=0 and [ha_scene#goodnight]=0
+    TaskValueSet 2,2,1
+    neopixel,2,127,0,255 // PURPLE
+
+  elseif [meek#switch2]=0 and [ha_scene#goodnight]=1
+    TaskValueSet 2,2,1
+    neopixel,2,54,0,107 // PURPLE
+  Endif
+Endon
+
+On homeassistant#motion=0 do
+  If [meek#switch2]=1 and [ha_scene#goodnight]=0
+    TaskValueSet 2,2,0
+    neopixel,2,255,0,0 // RED
+
+  elseif [meek#switch2]=1 and [ha_scene#goodnight]=1
+    TaskValueSet 2,2,0
+    neopixel,2,20,0,0 // RED
   Endif
 Endon
