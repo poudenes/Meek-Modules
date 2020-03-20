@@ -1,3 +1,26 @@
+On touch1#touch1=1 do
+  If [homeassistant#switch1]=0 and [ha_scene#goodnight]=0
+    Publish homeassistant/meek/dressoir,1
+    TaskValueSet 11,1,1
+    neopixel,1,0,255,0 // GREEN
+
+  elseif [homeassistant#switch1]=0 and [ha_scene#goodnight]=1
+    Publish homeassistant/meek/dressoir,1
+    TaskValueSet 11,1,1
+    neopixel,1,0,5,0 // GREEN
+
+  elseif [homeassistant#switch1]=1 and [ha_scene#goodnight]=0
+    Publish homeassistant/meek/dressoir,0
+    TaskValueSet 11,1,0
+    neopixel,1,255,0,0 // RED
+
+  elseif [homeassistant#switch1]=1 and [ha_scene#goodnight]=1
+    Publish homeassistant/meek/dressoir,0
+    TaskValueSet 11,1,0
+    neopixel,1,5,0,0 // RED
+  Endif
+Endon
+
 On homeassistant#motion=1 do
   If [homeassistant#switch1]=0 and [ha_scene#goodnight]=0
     TaskValueSet 11,1,1
@@ -37,29 +60,6 @@ On homeassistant#switch1=0 do
     neopixel,1,255,0,0 // RED
 
   elseif [ha_scene#goodnight]=1
-    TaskValueSet 11,1,0
-    neopixel,1,5,0,0 // RED
-  Endif
-Endon
-
-On touch1#touch1=1 do
-  If [homeassistant#switch1]=0 and [ha_scene#goodnight]=0
-    Publish homeassistant/meek/dressoir,1
-    TaskValueSet 11,1,1
-    neopixel,1,0,255,0 // GREEN
-
-  elseif [homeassistant#switch1]=0 and [ha_scene#goodnight]=1
-    Publish homeassistant/meek/dressoir,1
-    TaskValueSet 11,1,1
-    neopixel,1,0,5,0 // GREEN
-
-  elseif [homeassistant#switch1]=1 and [ha_scene#goodnight]=0
-    Publish homeassistant/meek/dressoir,0
-    TaskValueSet 11,1,0
-    neopixel,1,255,0,0 // RED
-
-  elseif [homeassistant#switch1]=1 and [ha_scene#goodnight]=1
-    Publish homeassistant/meek/dressoir,0
     TaskValueSet 11,1,0
     neopixel,1,5,0,0 // RED
   Endif

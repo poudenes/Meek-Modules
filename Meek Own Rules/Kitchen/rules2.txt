@@ -1,45 +1,66 @@
 On touch2#touch2=1 do
-  If [meek#switch2]=0 and [ha_scene#goodnight]=0
-    TaskValueSet 2,2,1
+  If [homeassistant#switch2]=0 and [ha_scene#goodnight]=0
+    TaskValueSet 11,2,1
     neopixel,2,0,255,0 // GREEN
     Publish homeassistant/meek/cooking,1
 
-  elseif [meek#switch2]=0 and [ha_scene#goodnight]=1
-    TaskValueSet 2,2,1
-    neopixel,2,0,50,0 // GREEN
+  elseif [homeassistant#switch2]=0 and [ha_scene#goodnight]=1
+    TaskValueSet 11,2,1
+    neopixel,2,0,10,0 // GREEN
     Publish homeassistant/meek/cooking,1
 
-  elseif [meek#switch2]=1 and [ha_scene#goodnight]=0
-    TaskValueSet 2,2,0
+  elseif [homeassistant#switch2]=1 and [ha_scene#goodnight]=0
+    TaskValueSet 11,2,0
     neopixel,2,255,0,0 // RED
     Publish homeassistant/meek/cooking,0
 
-  elseif [meek#switch2]=1 and [ha_scene#goodnight]=1
-    TaskValueSet 2,2,0
-    neopixel,2,50,0,0 // RED
+  elseif [homeassistant#switch2]=1 and [ha_scene#goodnight]=1
+    TaskValueSet 11,2,0
+    neopixel,2,10,0,0 // RED
     Publish homeassistant/meek/cooking,0
-
   Endif
 Endon
 
 On homeassistant#motion=1 do
-  If [meek#switch2]=0 and [ha_scene#goodnight]=0
-    TaskValueSet 2,2,1
+  If [homeassistant#switch2]=0 and [ha_scene#goodnight]=0
+    TaskValueSet 11,2,1
     neopixel,2,127,0,255 // PURPLE
 
-  elseif [meek#switch2]=0 and [ha_scene#goodnight]=1
-    TaskValueSet 2,2,1
+  elseif [homeassistant#switch2]=0 and [ha_scene#goodnight]=1
+    TaskValueSet 11,2,1
     neopixel,2,54,0,107 // PURPLE
   Endif
 Endon
 
 On homeassistant#motion=0 do
-  If [meek#switch2]=1 and [ha_scene#goodnight]=0
-    TaskValueSet 2,2,0
+  If [homeassistant#switch2]=1 and [ha_scene#goodnight]=0
+    TaskValueSet 11,2,0
     neopixel,2,255,0,0 // RED
 
-  elseif [meek#switch2]=1 and [ha_scene#goodnight]=1
-    TaskValueSet 2,2,0
-    neopixel,2,20,0,0 // RED
+  elseif [homeassistant#switch2]=1 and [ha_scene#goodnight]=1
+    TaskValueSet 11,2,0
+    neopixel,2,10,0,0 // RED
+  Endif
+Endon
+
+On homeassistant#switch2=1 do
+  If [ha_scene#goodnight]=0
+    TaskValueSet 11,2,1
+    neopixel,2,0,255,0 // GREEN
+
+  elseif [ha_scene#goodnight]=1
+    TaskValueSet 11,2,1
+    neopixel,2,0,10,0 // GREEN
+  Endif
+Endon
+
+On homeassistant#switch2=0 do
+  If [ha_scene#goodnight]=0
+    TaskValueSet 11,2,0
+    neopixel,2,255,0,0 // RED
+
+  elseif [ha_scene#goodnight]=1
+    TaskValueSet 11,2,0
+    neopixel,2,10,0,0 // RED
   Endif
 Endon
