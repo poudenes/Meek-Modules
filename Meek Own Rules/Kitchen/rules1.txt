@@ -1,66 +1,40 @@
 On touch1#touch1=1 do
-  If [homeassistant#switch1]=0 and [ha_scene#goodnight]=0
+  If [ha_system#switch1]=0 and [ha_scene#goodnight]=0
     Publish homeassistant/meek/kitchenseeling,1
     TaskValueSet 11,1,1
     neopixel,1,0,255,0 // GREEN
 
-  elseif [homeassistant#switch1]=0 and [ha_scene#goodnight]=1
+  elseif [ha_system#switch1]=0 and [ha_scene#goodnight]=1
     Publish homeassistant/meek/kitchenseeling,1
     TaskValueSet 11,1,1
     neopixel,1,0,10,0 // GREEN
 
-  elseif [homeassistant#switch1]=1 and [ha_scene#goodnight]=0
+  elseif [ha_system#switch1]=1 and [ha_scene#goodnight]=0
     Publish homeassistant/meek/kitchenseeling,0
     TaskValueSet 11,1,0
     neopixel,1,255,0,0 // RED
 
-  elseif [homeassistant#switch1]=1 and [ha_scene#goodnight]=1
+  elseif [ha_system#switch1]=1 and [ha_scene#goodnight]=1
     Publish homeassistant/meek/kitchenseeling,0
     TaskValueSet 11,1,0
     neopixel,1,10,0,0 // RED
   Endif
 Endon
 
-On homeassistant#motion=1 do
-  If [homeassistant#switch1]=0 and [ha_scene#goodnight]=0
-    TaskValueSet 11,1,1
-    neopixel,1,127,0,255 // PURPLE
-
-  elseif [homeassistant#switch1]=0 and [ha_scene#goodnight]=1
-    TaskValueSet 11,1,1
-    neopixel,1,54,0,107 // PURPLE
-  Endif
-Endon
-
-On homeassistant#motion=0 do
-  If [homeassistant#switch1]=1 and [ha_scene#goodnight]=0
-    TaskValueSet 11,1,0
-    neopixel,1,255,0,0 // RED
-
-  elseif [homeassistant#switch1]=1 and [ha_scene#goodnight]=1
-    TaskValueSet 11,1,0
-    neopixel,1,10,0,0 // RED
-  Endif
-Endon
-
-On homeassistant#switch1=1 do
+On ha_system#motion=1 do
   If [ha_scene#goodnight]=0
-    TaskValueSet 11,1,1
-    neopixel,1,0,255,0 // GREEN
+    neopixel,1,0,0,255 // BLUE
 
   elseif [ha_scene#goodnight]=1
-    TaskValueSet 11,1,1
-    neopixel,1,0,10,0 // GREEN
+    neopixel,1,0,0,80 // BLUE
   Endif
 Endon
 
-On homeassistant#switch1=0 do
+On ha_system#motion=0 do
   If [ha_scene#goodnight]=0
-    TaskValueSet 11,1,0
     neopixel,1,255,0,0 // RED
 
   elseif [ha_scene#goodnight]=1
-    TaskValueSet 11,1,0
-    neopixel,1,10,0,0 // RED
+    Tneopixel,1,20,0,0 // RED
   Endif
 Endon
