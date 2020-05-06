@@ -35,6 +35,6 @@ On ha_system#motion=0 do
     neopixel,1,255,0,0 // RED
 
   elseif [ha_scene#goodnight]=1
-    Tneopixel,1,20,0,0 // RED
+    neopixel,1,20,0,0 // RED
   Endif
 Endon

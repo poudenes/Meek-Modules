@@ -1,22 +1,22 @@
 On touch1#touch1=1 do
   If [ha_system#switch1]=0 and [ha_scene#goodnight]=0
     Publish homeassistant/meek/bathroom,1
-    TaskValueSet 2,1,1
+    TaskValueSet 11,1,1
     neopixel,1,0,255,0 // GREEN
 
   elseif [ha_system#switch1]=0 and [ha_scene#goodnight]=1
     Publish homeassistant/meek/bathroom,1
-    TaskValueSet 2,1,1
+    TaskValueSet 11,1,1
     neopixel,1,0,10,0 // GREEN
 
   elseif [ha_system#switch1]=1 and [ha_scene#goodnight]=0
     Publish homeassistant/meek/bathroom,0
-    TaskValueSet 2,1,0
+    TaskValueSet 11,1,0
     neopixel,1,255,0,0 // RED
 
   elseif [ha_system#switch1]=1 and [ha_scene#goodnight]=1
     Publish homeassistant/meek/bathroom,0
-    TaskValueSet 2,1,1
+    TaskValueSet 11,1,1
     neopixel,1,10,0,0 // GREEN
   Endif
 Endon
@@ -35,6 +35,6 @@ On ha_system#motion=0 do
     neopixel,1,255,0,0 // RED
 
   elseif [ha_scene#goodnight]=1
-    Tneopixel,1,20,0,0 // RED
+    neopixel,1,20,0,0 // RED
   Endif
 Endon

@@ -1,40 +1,40 @@
-On touch3#touch3=1 do
-  If [ha_system#switch3]=0 and [ha_scene#goodnight]=0
-    Publish homeassistant/meek/kitchensink,1
-    TaskValueSet 11,3,1
-    neopixel,3,0,255,0 // GREEN
+On touch2#touch2=1 do
+  If [ha_system#switch2]=0 and [ha_scene#goodnight]=0
+    TaskValueSet 11,2,1
+    neopixel,2,0,255,0 // GREEN
+    Publish homeassistant/meek/cooking,1
 
-  elseif [ha_system#switch3]=0 and [ha_scene#goodnight]=1
-    Publish homeassistant/meek/kitchensink,1
-    TaskValueSet 11,3,1
-    neopixel,3,0,10,0 // GREEN
+  elseif [ha_system#switch2]=0 and [ha_scene#goodnight]=1
+    TaskValueSet 11,2,1
+    neopixel,2,0,10,0 // GREEN
+    Publish homeassistant/meek/cooking,1
 
-  elseif [ha_system#switch3]=1 and [ha_scene#goodnight]=0
-    Publish homeassistant/meek/kitchensink,0
-    TaskValueSet 11,3,0
-    neopixel,3,255,0,0 // RED
+  elseif [ha_system#switch2]=1 and [ha_scene#goodnight]=0
+    TaskValueSet 11,2,0
+    neopixel,2,255,0,0 // RED
+    Publish homeassistant/meek/cooking,0
 
-  elseif [ha_system#switch3]=1 and [ha_scene#goodnight]=1
-    Publish homeassistant/meek/kitchensink,0
-    TaskValueSet 11,3,0
-    neopixel,3,10,0,0 // RED
+  elseif [ha_system#switch2]=1 and [ha_scene#goodnight]=1
+    TaskValueSet 11,2,0
+    neopixel,2,10,0,0 // RED
+    Publish homeassistant/meek/cooking,0
   Endif
 Endon
 
 On ha_system#motion=1 do
   If [ha_scene#goodnight]=0
-    neopixel,3,0,0,255 // BLUE
+    neopixel,2,0,0,255 // BLUE
 
   elseif [ha_scene#goodnight]=1
-    neopixel,3,0,0,80 // BLUE
+    neopixel,2,0,0,80 // BLUE
   Endif
 Endon
 
 On ha_system#motion=0 do
   If [ha_scene#goodnight]=0
-    neopixel,3,255,0,0 // RED
+    neopixel,2,255,0,0 // RED
 
   elseif [ha_scene#goodnight]=1
-    Tneopixel,3,20,0,0 // RED
+    neopixel,2,20,0,0 // RED
   Endif
 Endon
