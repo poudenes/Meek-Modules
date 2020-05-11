@@ -6,13 +6,13 @@ On Touch#Button=1 do
     TaskValueSet 3,4,1
     Neopixel,1,50,0,50
     TimerSet,6,10
-    Tone,15,1300,50
+    Tone,0,1300,50
   Else
     If [Meek#ResetTouch]=0
     GPIO,4,0
     TaskValueSet 3,1,0
     Neopixel,1,50,50,50
-    Tone,15,1300,50
+    Tone,0,1300,50
   Endif
 Endon
 
@@ -22,12 +22,12 @@ On toggle do
     GPIO,4,1
     TaskValueSet 3,1,1
     Neopixel,1,50,0,50
-    Tone,15,1300,50
+    Tone,0,1300,50
   Else
     GPIO,4,0
     TaskValueSet 3,1,0
     Neopixel,1,50,50,50
-    Tone,15,1300,50
+    Tone,0,1300,50
   Endif
 Endon
 

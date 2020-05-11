@@ -25,7 +25,12 @@ On CalibrateTouch do
   Neopixel,1,50,0,0
 Endon
 
-//---"EVENT-ResetWiFi" Reset Wi-Fi credentials ; 
+//---"EVENT-Re-calibration Touch Buttons each Mondays at 03.00 hours;
+On Clock#Time=Mon,03:00 do
+Event,CalibrateTouch
+Endon
+
+//---"EVENT-ResetWiFi" Reset Wi-Fi credentials ;
 On resetwifi do
   WifiSSID
   WifiKey
@@ -33,10 +38,10 @@ On resetwifi do
   Save
 Endon
 
-On StarWars do 
-  RTTTL,15:d=4,o=5,b=80:8d.,8d.,8d.,8a-4,16f,8d.,8a-4,16f,d.,32p,8a.,8a.,8a.,8a-,16f,8c-.,8a-4,16f,d.,32p
+On StarWars do
+  RTTTL,0:d=4,o=5,b=80:8d.,8d.,8d.,8a-4,16f,8d.,8a-4,16f,d.,32p,8a.,8a.,8a.,8a-,16f,8c-.,8a-4,16f,d.,32p
 Endon
 
-On Batman do 
-  RTTTL,15:d=8,o=5,b=180:b,b,a-,a-,a,a,a-,a-,b,b,a-,a-,a,a,a-,a-,4b,p,4b
+On Batman do
+  RTTTL,0:d=8,o=5,b=180:b,b,a-,a-,a,a,a-,a-,b,b,a-,a-,a,a,a-,a-,4b,p,4b
 Endon
