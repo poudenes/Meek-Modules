@@ -2,7 +2,7 @@ On touch1#touch1=1 do
   If [ha_system#switch1]=0 and [ha_system#fan]=0 and [ha_scene#goodnight]=0
     Publish homeassistant/meek/toilet,1
     Publish homeassistant/switch/fan_toilet,1
-    gpio 4,1
+    gpio 5,1
     TaskValueSet 11,1,1
     TaskValueSet 11,2,1
     neopixel,1,0,255,0 // GREEN
@@ -14,7 +14,7 @@ On touch1#touch1=1 do
     neopixel,1,0,10,0 // GREEN
 
   elseif [ha_system#switch1]=1 and [ha_system#fan]=0 and [ha_scene#goodnight]=0
-    gpio 4,1
+    gpio 5,1
     Publish homeassistant/switch/fan_toilet,1
     TaskValueSet 11,2,1
     neopixel,1,0,255,0 // GREEN
@@ -26,7 +26,7 @@ On touch1#touch1=1 do
   elseif [ha_system#switch1]=1 and [ha_system#fan]=1 and [ha_scene#goodnight]=0
     Publish homeassistant/meek/toilet,0
     Publish homeassistant/switch/fan_toilet,0
-    gpio 4,0
+    gpio 5,0
     TaskValueSet 11,1,0
     TaskValueSet 11,2,0
     neopixel,1,255,0,0 // RED
@@ -34,7 +34,7 @@ On touch1#touch1=1 do
   elseif [ha_system#switch1]=1 and [ha_system#fan]=1 and [ha_scene#goodnight]=1
     Publish homeassistant/meek/toilet,0
     Publish homeassistant/switch/fan_toilet,0
-    gpio 4,0
+    gpio 5,0
     TaskValueSet 11,1,0
     TaskValueSet 11,2,0
     neopixel,1,10,0,0 // RED
