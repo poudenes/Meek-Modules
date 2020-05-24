@@ -1,39 +1,32 @@
 // SCENES COLORS BASED ON SCENE EVENT IN HA
-On ha_scene#goodnight=1 do
-  NeopixelALL,50,0,0 // RED
+On ha_dn#evening=1 do
+  NeopixelALL,255,0,0 // RED
 Endon
 
-On ha_scene#goodnight=0 do
+On ha_dn#daytime=1 do
   NeopixelALL,255,0,0 // RED
+Endon
+
+On ha_scene#goodnight=1 do
+  NeopixelALL,50,0,0 // RED
 Endon
 
 On ha_scene#kodi=1 do
   NeopixelALL,255,0,255 // PINK
 Endon
 
-On ha_scene#kodi=0 do
-  NeopixelALL,255,0,0 // RED
-Endon
-
 On ha_scene#tv=1 do
-  NeopixelALL,255,0,255 // PINK
-Endon
-
-On ha_scene#tv=0 do
-  NeopixelALL,255,0,0 // RED
+  NeopixelALL,0,200,255 // LIGHT BLUE
 Endon
 
 On ha_scene#appletv=1 do
-  NeopixelALL,255,0,255 // PINK
-Endon
-
-On ha_scene#appletv=0 do
-  NeopixelALL,255,0,0 // RED
+  NeopixelALL,255,255,0 // YELLOW
 Endon
 // END SCENES COLORS BASED ON SCENE EVENT IN HA
 
 On System#Boot do
   TaskValueSet 11,1,0
+  TaskValueSet 11,2,0
   TaskValueSet 11,4,0
   GPIO,16,0
   NeopixelALL,50,0,0
@@ -76,4 +69,6 @@ On StarWars do
   RTTTL,15:d=4,o=5,b=80:8d.,8d.,8d.,8a-4,16f,8d.,8a-4,16f,d.,32p,8a.,8a.,8a.,8a-,16f,8c-.,8a-4,16f,d.,32p
 Endon
 
-On Batman do 
+On Batman do
+  RTTTL,15:d=8,o=5,b=180:b,b,a-,a-,a,a,a-,a-,b,b,a-,a-,a,a,a-,a-,4b,p,4b
+Endon

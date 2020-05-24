@@ -1,0 +1,13 @@
+On System#Boot do
+  timerSet,1,300
+endon
+
+On Rules#Timer=1 do
+  timerSet,1,300
+endon
+
+On Clock#Time=All,03:45 do
+if [System#Uptime]>2
+reboot
+endif
+endon
