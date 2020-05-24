@@ -1,21 +1,21 @@
 On touch2#touch2=1 do
   If [ha_system#switch2]=0 and [ha_scene#goodnight]=0
-    Publish homeassistant/meek/diningtable,1
+    Publish homeassistant/meek/wall,1
     TaskValueSet 11,2,1
     neopixel,2,0,255,0 // GREEN
 
   elseif [ha_system#switch1]=0 and [ha_scene#goodnight]=1
-    Publish homeassistant/meek/diningtable,1
+    Publish homeassistant/meek/wall,1
     TaskValueSet 11,2,1
     neopixel,2,0,10,0 // GREEN
 
   elseif [ha_system#switch2]=1 and [ha_scene#goodnight]=0
-    Publish homeassistant/meek/diningtable,0
+    Publish homeassistant/meek/wall,0
     TaskValueSet 11,2,0
     neopixel,2,255,0,0 // RED
 
   elseif [ha_system#switch2]=1 and [ha_scene#goodnight]=1
-    Publish homeassistant/meek/diningtable,0
+    Publish homeassistant/meek/wall,0
     TaskValueSet 11,2,0
     neopixel,2,10,0,0 // RED
   Endif

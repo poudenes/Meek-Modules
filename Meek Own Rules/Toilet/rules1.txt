@@ -1,5 +1,5 @@
 On touch1#touch1=1 do
-  If [ha_system#switch1]=0 and [ha_system#fan]=0 and [ha_scene#goodnight]=0
+  If [ha_system#s1]=0 and [ha_system#fan]=0 and [ha_scene#gn]=0
     Publish homeassistant/meek/toilet,1
     Publish homeassistant/switch/fan_toilet,1
     gpio 5,1
@@ -7,23 +7,23 @@ On touch1#touch1=1 do
     TaskValueSet 11,2,1
     neopixel,1,0,255,0 // GREEN
 
-  elseif [ha_system#switch1]=0 and [ha_system#fan]=0 and [ha_scene#goodnight]=1
+  elseif [ha_system#s1]=0 and [ha_system#fan]=0 and [ha_scene#gn]=1
     Publish homeassistant/meek/toilet,1
     TaskValueSet 11,1,1
     TaskValueSet 11,2,1
     neopixel,1,0,10,0 // GREEN
 
-  elseif [ha_system#switch1]=1 and [ha_system#fan]=0 and [ha_scene#goodnight]=0
+  elseif [ha_system#s1]=1 and [ha_system#fan]=0 and [ha_scene#gn]=0
     gpio 5,1
     Publish homeassistant/switch/fan_toilet,1
     TaskValueSet 11,2,1
     neopixel,1,0,255,0 // GREEN
 
-  elseif [ha_system#switch1]=1 and [ha_system#fan]=0 and [ha_scene#goodnight]=1
+  elseif [ha_system#s1]=1 and [ha_system#fan]=0 and [ha_scene#gn]=1
     TaskValueSet 11,2,1
     neopixel,1,0,255,0 // GREEN
 
-  elseif [ha_system#switch1]=1 and [ha_system#fan]=1 and [ha_scene#goodnight]=0
+  elseif [ha_system#s1]=1 and [ha_system#fan]=1 and [ha_scene#gn]=0
     Publish homeassistant/meek/toilet,0
     Publish homeassistant/switch/fan_toilet,0
     gpio 5,0
@@ -31,7 +31,7 @@ On touch1#touch1=1 do
     TaskValueSet 11,2,0
     neopixel,1,255,0,0 // RED
 
-  elseif [ha_system#switch1]=1 and [ha_system#fan]=1 and [ha_scene#goodnight]=1
+  elseif [ha_system#s1]=1 and [ha_system#fan]=1 and [ha_scene#gn]=1
     Publish homeassistant/meek/toilet,0
     Publish homeassistant/switch/fan_toilet,0
     gpio 5,0
@@ -41,20 +41,20 @@ On touch1#touch1=1 do
   Endif
 Endon
 
-On ha_system#motion=1 do
-  If [ha_scene#goodnight]=0
+On ha_system#mot=1 do
+  If [ha_scene#gn]=0
     neopixel,1,0,0,255 // BLUE
 
-  elseif [ha_scene#goodnight]=1
+  elseif [ha_scene#gn]=1
     neopixel,1,0,0,80 // BLUE
   Endif
 Endon
 
-On ha_system#motion=0 do
-  If [ha_scene#goodnight]=0 and [ha_system#fan]=0
+On ha_system#mot=0 do
+  If [ha_scene#gn]=0 and [ha_system#fan]=0
     neopixel,1,255,0,0 // RED
 
-  elseif [ha_scene#goodnight]=1 and [ha_system#fan]=0
+  elseif [ha_scene#gn]=1 and [ha_system#fan]=0
     neopixel,1,10,0,0 // RED
   Endif
 Endon
