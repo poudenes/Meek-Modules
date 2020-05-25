@@ -8,19 +8,19 @@ On ha_dn#daytime=1 do
 Endon
 
 On ha_scene#goodnight=1 do
-  NeopixelALL,50,0,0 // RED
+  NeopixelALL,10,0,0 // RED
 Endon
 
 On ha_scene#kodi=1 do
-  NeopixelALL,255,0,255 // PINK
+  NeopixelALL,100,0,100 // PINK
 Endon
 
 On ha_scene#tv=1 do
-  NeopixelALL,0,200,255 // LIGHT BLUE
+  NeopixelALL,0,70,100 // LIGHT BLUE
 Endon
 
 On ha_scene#appletv=1 do
-  NeopixelALL,255,255,0 // YELLOW
+  NeopixelALL,100,100,0 // YELLOW
 Endon
 // END SCENES COLORS BASED ON SCENE EVENT IN HA
 
