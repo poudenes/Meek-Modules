@@ -4,7 +4,7 @@ On touch2#touch2=1 do
     TaskValueSet 11,2,1
     neopixel,2,0,255,0 // GREEN
 
-  elseif [ha_system#switch1]=0 and [ha_scene#goodnight]=1
+  elseif [ha_system#switch2]=0 and [ha_scene#goodnight]=1
     Publish homeassistant/meek/wall,1
     TaskValueSet 11,2,1
     neopixel,2,0,10,0 // GREEN
