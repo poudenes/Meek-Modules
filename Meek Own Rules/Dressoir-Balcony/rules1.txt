@@ -12,13 +12,13 @@ On touch1#touch1=1 do
     Publish homeassistant/meek/dressoir,1
 
   elseif [ha_system#switch1]=1 and [ha_scene#goodnight]=0
-    Publish,milight/0xAAAF/rgb_cct/0,{"state":"OFF"}
+    Publish,milight/0xAAAF/rgb_cct/0,'{"state":"OFF"}'
     TaskValueSet 11,1,0
     neopixel,1,255,0,0 // RED
     Publish homeassistant/meek/dressoir,0
 
   elseif [ha_system#switch1]=1 and [ha_scene#goodnight]=1
-    Publish,milight/0xAAAF/rgb_cct/0,{"state":"OFF"}
+    Publish,milight/0xAAAF/rgb_cct/0,'{"state":"OFF"}'
     TaskValueSet 11,1,0
     neopixel,1,10,0,0 // RED
     Publish homeassistant/meek/dressoir,0
