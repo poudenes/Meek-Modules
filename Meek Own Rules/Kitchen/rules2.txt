@@ -1,22 +1,12 @@
 On touch2#touch2=1 do
-  If [ha_system#switch2]=0 and [ha_scene#goodnight]=0
+  If [ha_system#switch2]=0
     TaskValueSet 11,2,1
     neopixel,2,0,255,0 // GREEN
     Publish homeassistant/meek/cooking,1
 
-  elseif [ha_system#switch2]=0 and [ha_scene#goodnight]=1
-    TaskValueSet 11,2,1
-    neopixel,2,0,10,0 // GREEN
-    Publish homeassistant/meek/cooking,1
-
-  elseif [ha_system#switch2]=1 and [ha_scene#goodnight]=0
+  elseif [ha_system#switch2]=1
     TaskValueSet 11,2,0
     neopixel,2,255,0,0 // RED
-    Publish homeassistant/meek/cooking,0
-
-  elseif [ha_system#switch2]=1 and [ha_scene#goodnight]=1
-    TaskValueSet 11,2,0
-    neopixel,2,10,0,0 // RED
     Publish homeassistant/meek/cooking,0
   Endif
 Endon

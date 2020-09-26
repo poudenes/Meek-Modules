@@ -1,26 +1,14 @@
 On touch1#touch1=1 do
-  If [ha_system#switch1]=0 and [ha_scene#goodnight]=0
+  If [ha_system#switch1]=0
     Publish milight/0xAAA3/rgb_cct/1,'{"state":"ON", "brightness": 255}'
     TaskValueSet 11,1,1
     neopixel,1,0,255,0 // GREEN
     Publish homeassistant/meek/hallway,1
 
-  elseif [ha_system#switch1]=0 and [ha_scene#goodnight]=1
-    Publish milight/0xAAA3/rgb_cct/1,'{"state":"ON", "brightness": 255}'
-    TaskValueSet 11,1,1
-    neopixel,1,0,20,0 // GREEN
-    Publish homeassistant/meek/hallway,1
-
-  elseif [ha_system#switch1]=1 and [ha_scene#goodnight]=0
+  elseif [ha_system#switch1]=1
     Publish milight/0xAAA3/rgb_cct/1,'{"state":"OFF"}'
     TaskValueSet 11,1,0
     neopixel,1,255,0,0 // RED
-    Publish homeassistant/meek/hallway,0
-
-  elseif [ha_system#switch1]=1 and [ha_scene#goodnight]=1
-    Publish milight/0xAAA3/rgb_cct/1,'{"state":"OFF"}'
-    TaskValueSet 11,1,1
-    neopixel,1,20,0,0 // RED
     Publish homeassistant/meek/hallway,0
   Endif
 Endon
