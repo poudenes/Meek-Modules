@@ -1,9 +1,9 @@
-BuiBuild:⋄	20111 - Mega
+Build:⋄	20111 - Mega
 System Libraries:⋄	ESP82xx Core 2843a5ac, NONOS SDK 2.2.2-dev(38a443e), LWIP: 2.1.2 PUYA support
 Git Build:⋄
-Plugin Count:⋄	82 [Normal] [Testing] [Development]
+Plugin Count:⋄	83 [Normal] [Testing] [Development]
 Build Origin:	Travis
-Build Time:⋄	Oct 16 2020 23:35:09
-Binary Filename:⋄	ESP_Easy_mega_20201016_dev_ESP8266_4M1M
+Build Time:⋄	Nov 2 2020 13:06:24
+Binary Filename:⋄	ESP_Easy_mega_20201102_dev_ESP8266_4M1M
 Build Platform:⋄	Linux-4.19.104-microsoft-standard-x86_64-with-glibc2.29
-Git HEAD:⋄	mega-20201016_1a7f662
+Git HEAD:⋄	mega-20201102_ca0be3f
