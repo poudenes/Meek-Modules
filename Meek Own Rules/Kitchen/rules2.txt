@@ -1,13 +1,27 @@
 On touch2#touch2=1 do
   If [ha_system#switch2]=0
+    Publish homeassistant/ha_switches/cooking,1
     TaskValueSet 11,2,1
-    neopixel,2,0,255,0 // GREEN
-    Publish homeassistant/meek/cooking,1
 
   elseif [ha_system#switch2]=1
+    Publish homeassistant/ha_switches/cooking,0
     TaskValueSet 11,2,0
+  Endif
+Endon
+
+On ha_system#switch2=1 do
+  If [ha_scene#goodnight]=0
+    neopixel,2,0,255,0 // GREEN
+  elseif [ha_scene#goodnight]=1
+    neopixel,2,0,20,0 // GREEN
+  Endif
+Endon
+
+On ha_system#switch2=0 do
+  If [ha_scene#goodnight]=0
     neopixel,2,255,0,0 // RED
-    Publish homeassistant/meek/cooking,0
+  elseif [ha_scene#goodnight]=1
+    neopixel,2,20,0,0 // RED
   Endif
 Endon
 

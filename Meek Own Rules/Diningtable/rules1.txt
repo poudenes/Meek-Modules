@@ -1,14 +1,28 @@
 On touch1#touch1=1 do
   If [ha_system#switch1]=0
-    Publish homeassistant/meek/diningtable,1
+    Publish homeassistant/ha_switches/diningtable,1
     TaskValueSet 11,1,1
-    neopixel,1,0,255,0 // GREEN
 
 
   elseif [ha_system#switch1]=1
-    Publish homeassistant/meek/diningtable,0
+    Publish homeassistant/ha_switches/diningtable,0
     TaskValueSet 11,1,0
+  Endif
+Endon
+
+On ha_system#switch1=1 do
+  If [ha_scene#goodnight]=0
+    neopixel,1,0,255,0 // GREEN
+  elseif [ha_scene#goodnight]=1
+    neopixel,1,0,20,0 // GREEN
+  Endif
+Endon
+
+On ha_system#switch1=0 do
+  If [ha_scene#goodnight]=0
     neopixel,1,255,0,0 // RED
+  elseif [ha_scene#goodnight]=1
+    neopixel,1,20,0,0 // RED
   Endif
 Endon
 

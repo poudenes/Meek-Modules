@@ -52,10 +52,10 @@ On CalibrateTouch do
   NeopixelALL,50,0,0
 Endon
 
-//---"EVENT-Re-calibration Touch Buttons each Mondays at 03.00 hours;
-On Clock#Time=Mon,03:00 do
-Event,CalibrateTouch
-Endon
+//---"EVENT-Re-calibration Touch Buttons each Mondays at 11.00 hours;
+//On Clock#Time=Mon,11:00 do
+//Event,CalibrateTouch
+//Endon
 
 //---"EVENT-ResetWiFi" Reset Wi-Fi credentials ;
 On resetwifi do

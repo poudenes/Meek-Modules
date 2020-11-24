@@ -1,15 +1,30 @@
 On touch3#touch3=1 do
   If [ha_system#switch3]=0
-    Publish milight/0xAAA1/rgb_cct/0,'{"state":"ON", "brightness": 255}'
+//    Publish milight/0xAAA1/rgb_cct/0,'{"state":"ON", "brightness": 100}'
+    Publish homeassistant/ha_switches/kitchensink,1
     TaskValueSet 11,3,1
-    neopixel,3,0,255,0 // GREEN
-    Publish homeassistant/meek/kitchensink,1
 
   elseif [ha_system#switch3]=1
-    Publish milight/0xAAA1/rgb_cct/0,'{"state":"OFF"}'
+//    Publish milight/0xAAA1/rgb_cct/0,'{"state":"ON", "brightness": 51}'
+//    Publish milight/0xAAA1/rgb_cct/0,'{"state":"OFF"}'
+    Publish homeassistant/ha_switches/kitchensink,0
     TaskValueSet 11,3,0
+  Endif
+Endon
+
+On ha_system#switch3=1 do
+  If [ha_scene#goodnight]=0
+    neopixel,3,0,255,0 // GREEN
+  elseif [ha_scene#goodnight]=1
+    neopixel,3,0,20,0 // GREEN
+  Endif
+Endon
+
+On ha_system#switch3=0 do
+  If [ha_scene#goodnight]=0
     neopixel,3,255,0,0 // RED
-    Publish homeassistant/meek/kitchensink,0
+  elseif [ha_scene#goodnight]=1
+    neopixel,3,20,0,0 // RED
   Endif
 Endon
 

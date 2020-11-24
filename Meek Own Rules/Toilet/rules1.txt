@@ -1,60 +1,77 @@
 On touch1#touch1=1 do
-  If [ha_system#s1]=0 and [ha_system#fan]=0 and [ha_scene#gn]=0
-    Publish homeassistant/meek/toilet,1
-    Publish homeassistant/switch/fan_toilet,1
-    gpio 5,1
+  If [ha_system#s1]=0
+//    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 255}'
+    Publish homeassistant/ha_switches/toilet,1
+    Publish homeassistant/ha_other/fan_toilet,1
+    //gpio 5,1
     TaskValueSet 11,1,1
     TaskValueSet 11,2,1
-    neopixel,1,0,255,0 // GREEN
 
-  elseif [ha_system#s1]=0 and [ha_system#fan]=0 and [ha_scene#gn]=1
-    Publish homeassistant/meek/toilet,1
-    TaskValueSet 11,1,1
-    TaskValueSet 11,2,1
-    neopixel,1,0,10,0 // GREEN
-
-  elseif [ha_system#s1]=1 and [ha_system#fan]=0 and [ha_scene#gn]=0
-    gpio 5,1
-    Publish homeassistant/switch/fan_toilet,1
-    TaskValueSet 11,2,1
-    neopixel,1,0,255,0 // GREEN
-
-  elseif [ha_system#s1]=1 and [ha_system#fan]=0 and [ha_scene#gn]=1
-    TaskValueSet 11,2,1
-    neopixel,1,0,255,0 // GREEN
-
-  elseif [ha_system#s1]=1 and [ha_system#fan]=1 and [ha_scene#gn]=0
-    Publish homeassistant/meek/toilet,0
-    Publish homeassistant/switch/fan_toilet,0
-    gpio 5,0
+  elseif [ha_system#s1]=1
+//    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 51}'
+//    Publish milight/0xAAAE/rgb_cct/0,'{"state":"OFF"}'
+    Publish homeassistant/ha_switches/toilet,0
+    Publish homeassistant/ha_other/fan_toilet,0
+    //gpio 5,0
     TaskValueSet 11,1,0
     TaskValueSet 11,2,0
+  Endif
+Endon
+
+On ha_system#s1=1 do
+  If [ha_scene#gn]=0
+    neopixel,1,0,255,0 // GREEN
+  elseif [ha_scene#gn]=1
+    neopixel,1,0,20,0 // GREEN
+  Endif
+Endon
+
+On ha_system#fan=1 do
+  gpio 5,1
+Endon
+
+On ha_system#fan=0 do
+  gpio 5,0
+Endon
+
+On ha_system#s1=0 do
+  If [ha_scene#gn]=0
     neopixel,1,255,0,0 // RED
-
-  elseif [ha_system#s1]=1 and [ha_system#fan]=1 and [ha_scene#gn]=1
-    Publish homeassistant/meek/toilet,0
-    Publish homeassistant/switch/fan_toilet,0
-    gpio 5,0
-    TaskValueSet 11,1,0
-    TaskValueSet 11,2,0
-    neopixel,1,10,0,0 // RED
+  elseif [ha_scene#gn]=1
+    neopixel,1,20,0,0 // RED
   Endif
 Endon
 
 On ha_system#mot=1 do
   If [ha_scene#gn]=0
     neopixel,1,0,0,255 // BLUE
+    gpio 5,1
+    TaskValueSet 11,2,1
+    Publish homeassistant/ha_other/fan_toilet,1
 
-  elseif [ha_scene#gn]=1
+  elseif [ha_scene#gn]=1 and [ha_system#guests]=1
     neopixel,1,0,0,80 // BLUE
+    gpio 5,1
+    TaskValueSet 11,2,1
+    Publish homeassistant/ha_other/fan_toilet,1
+
+  elseif [ha_scene#gn]=1 and [ha_system#guests]=0
+    neopixel,1,0,0,80 // BLUE
+    TaskValueSet 11,2,1
   Endif
 Endon
 
 On ha_system#mot=0 do
-  If [ha_scene#gn]=0 and [ha_system#fan]=0
+  If [ha_scene#gn]=0
     neopixel,1,255,0,0 // RED
+    gpio 5,0
+    TaskValueSet 11,2,1
+    Publish homeassistant/ha_other/fan_toilet,0
 
-  elseif [ha_scene#gn]=1 and [ha_system#fan]=0
+  elseif [ha_scene#gn]=1
     neopixel,1,10,0,0 // RED
+    gpio 5,0
+    TaskValueSet 11,2,1
+    Publish homeassistant/ha_other/fan_toilet,0
   Endif
 Endon

@@ -66,3 +66,8 @@ On resetwifi do
   Reboot
   Save
 Endon
+
+//---"EVENT-Re-calibration Touch Buttons each Mondays at 11.00 hours;
+//On Clock#Time=Mon,11:00 do
+//Event,CalibrateTouch
+//Endon
