@@ -1,5 +1,21 @@
 # Meek-Modules
 
+All modules connected to a 2.4GHz Wifi Connection.
+The Wifi connection has been setup in router as follow:
+
+Im using a Asus ROG Rapture GT-AX11000 Router
+
+Enable Smart Control: off
+802.11ax / Wi-Fi 6 mode: enable (didn't try to disable if this will be better)
+Wi-Fi Agile Multiband: disable
+Target Wake Tim: enable
+Channel Bandwidth: 20 MHz
+Control Channel: 11 (seems that higher or lower give connection problems)
+Auth Method: WPA/WPA-2 Personal
+WPA Encryption: TKIP+AES
+Protect Management Frame: disable
+Group Key Rotation Interval: 3600
+
 GPIO Schema:
 
 MP1:
