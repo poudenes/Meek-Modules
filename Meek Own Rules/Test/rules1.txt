@@ -1,66 +1,33 @@
-On touch1#touch1=1 do
-  If [homeassistant#switch1]=0 and [ha_scene#goodnight]=0
-    Publish homeassistant/meek/dressoir,1
+on touch1#touch1=1 do
+ timerSet,1,1
+EndOn
+
+On Rules#Timer=1 do
+  If [ha_system#switch1]=0
+    Publish homeassistant/ha_switches/hallway,1
+    Publish Meek/Hallway/Touch1/switch,1
     TaskValueSet 11,1,1
-    neopixel,1,0,255,0 // GREEN
+    timerSet,1,0
 
-  elseif [homeassistant#switch1]=0 and [ha_scene#goodnight]=1
-    Publish homeassistant/meek/dressoir,1
-    TaskValueSet 11,1,1
-    neopixel,1,0,5,0 // GREEN
-
-  elseif [homeassistant#switch1]=1 and [ha_scene#goodnight]=0
-    Publish homeassistant/meek/dressoir,0
+  elseif [ha_system#switch1]=1
+    Publish homeassistant/ha_switches/hallway,0
+    Publish Meek/Hallway/Touch1/switch,off
+    Publish Milight_Hub/0xAAA3/rgb_cct/1,'{"status":"OFF"}'
     TaskValueSet 11,1,0
-    neopixel,1,255,0,0 // RED
-
-  elseif [homeassistant#switch1]=1 and [ha_scene#goodnight]=1
-    Publish homeassistant/meek/dressoir,0
-    TaskValueSet 11,1,0
-    neopixel,1,5,0,0 // RED
+    timerSet,1,0
   Endif
-Endon
+endon
 
-On homeassistant#motion=1 do
-  If [homeassistant#switch1]=0 and [ha_scene#goodnight]=0
-    TaskValueSet 11,1,1
-    neopixel,1,127,0,255 // PURPLE
+on touch1#touch1=3 do
+ Publish Milight_Hub/0xAAA3/rgb_cct/1,'{"status":"ON","effect":"0"}'
+ Publish Meek/Hallway/Touch1/switch,3
+ TaskValueSet 11,1,1
+ timerSet,1,0
+EndOn
 
-  elseif [homeassistant#switch1]=0 and [ha_scene#goodnight]=1
-    TaskValueSet 11,1,1
-    neopixel,1,54,0,107 // PURPLE
-  Endif
-Endon
-
-On homeassistant#motion=0 do
-  If [homeassistant#switch1]=1 and [ha_scene#goodnight]=0
-    TaskValueSet 11,1,0
-    neopixel,1,255,0,0 // RED
-
-  elseif [homeassistant#switch1]=1 and [ha_scene#goodnight]=1
-    TaskValueSet 11,1,0
-    neopixel,1,5,0,0 // RED
-  Endif
-Endon
-
-On homeassistant#switch1=1 do
-  If [ha_scene#goodnight]=0
-    TaskValueSet 11,1,1
-    neopixel,1,0,255,0 // GREEN
-
-  elseif [ha_scene#goodnight]=1
-    TaskValueSet 11,1,1
-    neopixel,1,0,5,0 // GREEN
-  Endif
-Endon
-
-On homeassistant#switch1=0 do
-  If [ha_scene#goodnight]=0
-    TaskValueSet 11,1,0
-    neopixel,1,255,0,0 // RED
-
-  elseif [ha_scene#goodnight]=1
-    TaskValueSet 11,1,0
-    neopixel,1,5,0,0 // RED
-  Endif
-Endon
+on touch1#touch1=11 do
+ Publish Milight_Hub/0xAAA3/rgb_cct/1,'{"status":"ON","effect":"2"}'
+ Publish Meek/Hallway/Touch1/switch,11
+ TaskValueSet 11,1,1
+ timerSet,1,0
+endon

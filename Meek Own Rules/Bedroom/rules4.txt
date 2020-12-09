@@ -32,7 +32,7 @@ On ha_scene#appletv=0 do
 Endon
 // END SCENES COLORS BASED ON SCENE EVENT IN HA
 
-//---START : Boot Initialization and calibration commands for the onboard Touch IC
+// START Boot
 On System#Boot do
   TaskValueSet 11,1,0
   TaskValueSet 11,4,0
@@ -43,21 +43,29 @@ Endon
 
 On Rules#Timer=8 do
   GPIO,16,1
-  Neopixel,1,50,50,50
+  NeopixelAll,50,50,50
   TimerSet,7,2
-  TaskValueSet 3,1,0
 Endon
 
 On Rules#Timer=7 do
   TaskValueSet 3,3,0
 Endon
-//---END : Boot Initialization and calibration commands for the onboard Touch IC
+// END Boot
 
+//---(Re-)Calibration Touch Sensor
 On CalibrateTouch do
   TaskValueSet 3,3,1
   GPIO,16,0
   TimerSet,8,3
   Neopixel,1,50,0,0
+Endon
+
+// Reset Wi-Fi credentials
+On resetwifi do
+  WifiSSID
+  WifiKey
+  Reboot
+  Save
 Endon
 
 //---"EVENT-Re-calibration Touch Buttons each Mondays at 11.00 hours;
