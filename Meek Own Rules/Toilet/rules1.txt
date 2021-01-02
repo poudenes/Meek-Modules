@@ -1,6 +1,5 @@
 On touch1#touch1=1 do
   If [ha_system#s1]=0
-//    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 255}'
     Publish homeassistant/ha_switches/toilet,1
     Publish homeassistant/ha_other/fan_toilet,1
     //gpio 5,1
@@ -8,8 +7,6 @@ On touch1#touch1=1 do
     TaskValueSet 11,2,1
 
   elseif [ha_system#s1]=1
-//    Publish milight/0xAAAE/rgb_cct/0,'{"state":"ON", "brightness": 51}'
-//    Publish milight/0xAAAE/rgb_cct/0,'{"state":"OFF"}'
     Publish homeassistant/ha_switches/toilet,0
     Publish homeassistant/ha_other/fan_toilet,0
     //gpio 5,0

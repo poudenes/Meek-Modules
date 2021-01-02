@@ -1,12 +1,9 @@
 On touch1#touch1=1 do
   If [ha_system#switch1]=0
-//    Publish milight/0xAAAD/rgb_cct/0,'{"state":"ON", "brightness": 255}'
     Publish homeassistant/ha_switches/bathroom,1
     TaskValueSet 11,1,1
 
   elseif [ha_system#switch1]=1
-//    Publish milight/0xAAAD/rgb_cct/0,'{"state":"ON", "brightness": 51}'
-//    Publish milight/0xAAAD/rgb_cct/0,'{"state":"OFF"}'
     Publish homeassistant/ha_switches/bathroom,0
     TaskValueSet 11,1,0
   Endif
