@@ -1,28 +1,14 @@
 on touch1#touch1=1 do
- timerSet,1,1
-EndOn
-
-On Rules#Timer=1 do
   If [ha_system#switch1]=0
+    Publish Milight_Hub/0xAAA3/rgb_cct/1,'{"status":"ON","brightness":"255"}'
     Publish homeassistant/ha_switches/hallway,1
-    Publish Meek/Hallway/Touch1/switch,1
     TaskValueSet 11,1,1
-    timerSet,1,0
 
   elseif [ha_system#switch1]=1
-    Publish homeassistant/ha_switches/hallway,0
-    Publish Meek/Hallway/Touch1/switch,off
     Publish Milight_Hub/0xAAA3/rgb_cct/1,'{"status":"OFF"}'
+    Publish homeassistant/ha_switches/hallway,0
     TaskValueSet 11,1,0
-    timerSet,1,0
   Endif
-endon
-
-on touch1#touch1=11 do
- Publish Milight_Hub/0xAAA3/rgb_cct/1,'{"status":"ON","brightness":"255","color_temp":"153"}'
- Publish Meek/Hallway/Touch1/switch,11
- TaskValueSet 11,1,1
- timerSet,1,0
 endon
 
 On ha_system#switch1=1 do
