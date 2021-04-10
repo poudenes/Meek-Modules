@@ -1,38 +1,53 @@
 // SCENES COLORS BASED ON SCENE EVENT IN HA
+On ha_dn#evening=1 do
+  NeopixelALL,255,0,0 // RED
+Endon
+On ha_dn#daytime=1 do
+  NeopixelALL,255,0,0 // RED
+Endon
 On ha_scene#goodnight=1 do
   NeopixelALL,10,0,0 // RED
 Endon
-
-On ha_scene#goodnight=0 do
-  NeopixelALL,255,0,0 // RED
-Endon
-
 On ha_scene#kodi=1 do
-  NeopixelALL,255,0,255 // PINK
+  NeopixelALL,100,0,100 // PINK
 Endon
-
-On ha_scene#kodi=0 do
-  NeopixelALL,255,0,0 // RED
-Endon
-
 On ha_scene#tv=1 do
-  NeopixelALL,255,0,255 // PINK
+  NeopixelALL,0,70,100 // LIGHT BLUE
 Endon
-
-On ha_scene#tv=0 do
-  NeopixelALL,255,0,0 // RED
-Endon
-
 On ha_scene#appletv=1 do
-  NeopixelALL,255,0,255 // PINK
-Endon
-
-On ha_scene#appletv=0 do
-  NeopixelALL,255,0,0 // RED
+  NeopixelALL,100,100,0 // YELLOW
 Endon
 // END SCENES COLORS BASED ON SCENE EVENT IN HA
 
-// START Boot
+// MOTION ACTIONS AND COLORS OF SCENES
+On ha_system#motion=1 do
+  If [ha_scene#goodnight]=0
+    NeopixelALL,1,0,0,255 // BLUE
+  elseif [ha_scene#goodnight]=1
+    NeopixelALL,1,0,0,80 // BLUE
+  Endif
+Endon
+
+On ha_system#motion=0 do
+  If [ha_scene#goodnight]=0
+    If [ha_scene#appletv]=1
+      NeopixelALL,1,100,100,0 // YELLOW
+    elseif [ha_scene#tv]=1
+      NeopixelALL,1,0,70,100 // LIGHT BLUE
+    elseif [ha_scene#kodi]=1
+      NeopixelALL,1,255,0,255 // PINK
+    elseif [ha_dn#evening]=1
+      NeopixelALL,1,255,0,0 // RED
+    elseif [ha_dn#daytime]=1
+      NeopixelALL,1,255,0,0 // RED
+    Endif
+  elseif [ha_scene#goodnight]=1
+    NeopixelALL,1,20,0,0 // RED
+  Endif
+Endon
+// END MOTION ACTIONS AND COLORS OF SCENES
+
+// START BOOT ACTIONS
 On System#Boot do
   TaskValueSet 11,1,0
   TaskValueSet 11,2,0
@@ -52,25 +67,22 @@ Endon
 On Rules#Timer=7 do
   TaskValueSet 3,3,0
 Endon
-// END Boot
+// END START BOOT ACTIONS
 
-// Calibration Touch Sensor
+// CALIBRATION TOUCH SENSOR
 On CalibrateTouch do
   TaskValueSet 3,3,1
   GPIO,16,0
   TimerSet,8,3
   NeopixelALL,50,0,0
 Endon
+// END CALIBRATION TOUCH SENSOR
 
-// Reset Wi-Fi credentials
+// RESET Wi-Fi CREDENTIALS
 On resetwifi do
   WifiSSID
   WifiKey
   Reboot
   Save
 Endon
-
-//---"EVENT-Re-calibration Touch Buttons each Mondays at 11.00 hours;
-//On Clock#Time=Mon,11:00 do
-//Event,CalibrateTouch
-//Endon
+// END RESET Wi-Fi CREDENTIALS
