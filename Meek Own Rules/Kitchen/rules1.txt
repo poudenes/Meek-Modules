@@ -14,8 +14,8 @@ On touch1#touch1=1 do
     Publish Milight_Hub/0xAAA2/rgb_cct/0,'{"status":"OFF"}'
     Publish homeassistant/ha_switches/kitchenseeling,0
     TaskValueSet 11,1,0
-    If [ha_scene#goodnight]=0
 
+    If [ha_scene#goodnight]=0
       If [ha_scene#appletv]=1
         Neopixel,1,100,100,0 // YELLOW
       elseif [ha_scene#tv]=1
