@@ -1,6 +1,6 @@
 On touch2#touch2=1 do
   If [ha_system#switch2]=0
-    Publish Milight_Hub/0xAAA4/rgb_cct/1,'{"status":"ON","brightness":"255"}'
+    Publish Milight_Hub/0xAAA4/rgb_cct/1,'{"state":"on","brightness":"255"}'
     Publish homeassistant/ha_switches/balcony,1
     TaskValueSet 11,2,1
     If [ha_scene#goodnight]=0
@@ -10,7 +10,7 @@ On touch2#touch2=1 do
     Endif
 
   elseif [ha_system#switch2]=1
-    Publish Milight_Hub/0xAAA4/rgb_cct/1,'{"status":"OFF"}'
+    Publish Milight_Hub/0xAAA4/rgb_cct/1,'{"state":"off"}'
     Publish homeassistant/ha_switches/balcony,0
     TaskValueSet 11,2,0
 
@@ -32,20 +32,22 @@ On touch2#touch2=1 do
   Endif
 Endon
 
-//On ha_system#motion=1 do
-//  If [ha_scene#goodnight]=0
-//    neopixel,2,0,0,255 // BLUE
+// HA Control switch
+On ha_system#switch2=1 do
+  If [ha_scene#goodnight]=0
+    neopixel,2,0,255,0
 
-//  elseif [ha_scene#goodnight]=1
-//    neopixel,2,0,0,80 // BLUE
-//  Endif
-//Endon
+  elseif [ha_scene#goodnight]=1
+    neopixel,2,0,20,0
+  Endif
+Endon
 
-//On ha_system#motion=0 do
-//  If [ha_scene#goodnight]=0
-//    neopixel,2,255,0,0 // RED
+On ha_system#switch2=0 do
+  If [ha_scene#goodnight]=0
+    neopixel,2,255,0,0
 
-//  elseif [ha_scene#goodnight]=1
-//    neopixel,2,20,0,0 // RED
-//  Endif
-//Endon
+  elseif [ha_scene#goodnight]=1
+    neopixel,2,20,0,0
+  Endif
+Endon
+// END

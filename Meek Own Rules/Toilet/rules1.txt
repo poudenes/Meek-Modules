@@ -2,40 +2,36 @@ On touch1#touch1=1 do
   If [ha_system#s1]=0
     Publish homeassistant/ha_switches/toilet,1
     Publish homeassistant/ha_other/fan_toilet,1
-    //gpio 5,1
     TaskValueSet 11,1,1
     TaskValueSet 11,2,1
+    If [ha_scene#gn]=0
+      neopixel,1,0,255,0 // GREEN
+    elseif [ha_scene#gn]=1
+      neopixel,1,0,20,0 // GREEN
+    Endif
 
   elseif [ha_system#s1]=1
     Publish homeassistant/ha_switches/toilet,0
     Publish homeassistant/ha_other/fan_toilet,0
-    //gpio 5,0
     TaskValueSet 11,1,0
     TaskValueSet 11,2,0
+    If [ha_scene#gn]=0
+
+      If [ha_scene#appletv]=1
+        Neopixel,1,100,100,0 // YELLOW
+      elseif [ha_scene#tv]=1
+        Neopixel,1,0,70,100 // LIGHT BLUE
+      elseif [ha_scene#kodi]=1
+        Neopixel,1,255,0,255 // PINK
+      elseif [ha_dn#evening]=1
+        Neopixel,1,255,0,0 // RED
+      elseif [ha_dn#daytime]=1
+        Neopixel,1,255,0,0 // RED
+      Endif
+
+    elseif [ha_scene#gn]=1
+      neopixel,1,20,0,0 // RED
   Endif
-Endon
-
-On ha_system#s1=1 do
-  If [ha_scene#gn]=0
-    neopixel,1,0,255,0 // GREEN
-  elseif [ha_scene#gn]=1
-    neopixel,1,0,20,0 // GREEN
-  Endif
-Endon
-
-On ha_system#fan=1 do
-  gpio 5,1
-Endon
-
-On ha_system#fan=0 do
-  gpio 5,0
-Endon
-
-On ha_system#s1=0 do
-  If [ha_scene#gn]=0
-    neopixel,1,255,0,0 // RED
-  elseif [ha_scene#gn]=1
-    neopixel,1,20,0,0 // RED
   Endif
 Endon
 
@@ -60,7 +56,19 @@ Endon
 
 On ha_system#mot=0 do
   If [ha_scene#gn]=0
-    neopixel,1,255,0,0 // RED
+
+    If [ha_scene#appletv]=1
+      Neopixel,1,100,100,0 // YELLOW
+    elseif [ha_scene#tv]=1
+      Neopixel,1,0,70,100 // LIGHT BLUE
+    elseif [ha_scene#kodi]=1
+      Neopixel,1,255,0,255 // PINK
+    elseif [ha_dn#evening]=1
+      Neopixel,1,255,0,0 // RED
+    elseif [ha_dn#daytime]=1
+      Neopixel,1,255,0,0 // RED
+    Endif
+
     gpio 5,0
     TaskValueSet 11,2,1
     Publish homeassistant/ha_other/fan_toilet,0

@@ -1,0 +1,7 @@
+On ha_system#fan=1 do
+  gpio 5,1
+Endon
+
+On ha_system#fan=0 do
+  gpio 5,0
+Endon

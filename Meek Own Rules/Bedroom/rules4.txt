@@ -1,36 +1,23 @@
 // SCENES COLORS BASED ON SCENE EVENT IN HA
+On ha_dn#evening=1 do
+  NeopixelALL,255,0,0 // RED
+Endon
+On ha_dn#daytime=1 do
+  NeopixelALL,255,0,0 // RED
+Endon
 On ha_scene#goodnight=1 do
   NeopixelALL,10,0,0 // RED
 Endon
-
-On ha_scene#goodnight=0 do
-  NeopixelALL,255,0,0 // RED
-Endon
-
 On ha_scene#kodi=1 do
-  NeopixelALL,255,0,255 // PINK
+  NeopixelALL,100,0,100 // PINK
 Endon
-
-On ha_scene#kodi=0 do
-  NeopixelALL,255,0,0 // RED
-Endon
-
 On ha_scene#tv=1 do
-  NeopixelALL,255,0,255 // PINK
+  NeopixelALL,0,70,100 // LIGHT BLUE
 Endon
-
-On ha_scene#tv=0 do
-  NeopixelALL,255,0,0 // RED
-Endon
-
 On ha_scene#appletv=1 do
-  NeopixelALL,255,0,255 // PINK
+  NeopixelALL,100,100,0 // YELLOW
 Endon
-
-On ha_scene#appletv=0 do
-  NeopixelALL,255,0,0 // RED
-Endon
-// END SCENES COLORS BASED ON SCENE EVENT IN HA
+// END
 
 // START Boot
 On System#Boot do
@@ -50,9 +37,9 @@ Endon
 On Rules#Timer=7 do
   TaskValueSet 3,3,0
 Endon
-// END Boot
+// END
 
-//---(Re-)Calibration Touch Sensor
+// Calibration Touch Sensor
 On CalibrateTouch do
   TaskValueSet 3,3,1
   GPIO,16,0
@@ -67,8 +54,3 @@ On resetwifi do
   Reboot
   Save
 Endon
-
-//---"EVENT-Re-calibration Touch Buttons each Mondays at 11.00 hours;
-//On Clock#Time=Mon,11:00 do
-//Event,CalibrateTouch
-//Endon

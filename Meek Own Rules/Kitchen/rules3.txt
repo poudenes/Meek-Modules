@@ -1,6 +1,6 @@
 On touch3#touch3=1 do
   If [ha_system#switch3]=0
-    Publish Milight_Hub/0xAAA1/rgb_cct/0,'{"status":"ON","brightness":"255"}'
+    Publish Milight_Hub/0xAAA1/rgb_cct/0,'{"state":"on","brightness":"255"}'
     Publish homeassistant/ha_switches/kitchensink,1
     TaskValueSet 11,3,1
 
@@ -11,7 +11,7 @@ On touch3#touch3=1 do
     Endif
 
   elseif [ha_system#switch3]=1
-    Publish Milight_Hub/0xAAA1/rgb_cct/0,'{"status":"OFF"}'
+    Publish Milight_Hub/0xAAA1/rgb_cct/0,'{"state":"off"}'
     Publish homeassistant/ha_switches/kitchensink,0
     TaskValueSet 11,3,0
     If [ha_scene#goodnight]=0
@@ -34,30 +34,22 @@ On touch3#touch3=1 do
   Endif
 Endon
 
-//On ha_system#motion=1 do
-//  If [ha_scene#goodnight]=0
-//    neopixel,3,0,0,255 // BLUE
-//  elseif [ha_scene#goodnight]=1
-//    neopixel,3,0,0,80 // BLUE
-//  Endif
-//Endon
+// HA Control switch
+On ha_system#switch3=1 do
+  If [ha_scene#goodnight]=0
+    neopixel,3,0,255,0
 
-//On ha_system#motion=0 do
-//  If [ha_scene#goodnight]=0
+  elseif [ha_scene#goodnight]=1
+    neopixel,3,0,20,0
+  Endif
+Endon
 
-//    If [ha_scene#appletv]=1
-//      Neopixel,3,100,100,0 // YELLOW
-//    elseif [ha_scene#tv]=1
-//      Neopixel,3,0,70,100 // LIGHT BLUE
-//    elseif [ha_scene#kodi]=1
-//      Neopixel,3,255,0,255 // PINK
-//    elseif [ha_dn#evening]=1
-//      Neopixel,3,255,0,0 // RED
-//    elseif [ha_dn#daytime]=1
-//      Neopixel,3,255,0,0 // RED
-//    Endif
+On ha_system#switch3=0 do
+  If [ha_scene#goodnight]=0
+    neopixel,3,255,0,0
 
-//  elseif [ha_scene#goodnight]=1
-//    neopixel,3,20,0,0 // RED
-//  Endif
-//Endon
+  elseif [ha_scene#goodnight]=1
+    neopixel,3,20,0,0
+  Endif
+Endon
+// END

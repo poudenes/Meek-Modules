@@ -1,3 +1,23 @@
+// HA Turns off switch
+On ha_system#switch1=1 do
+  neopixel,1,0,255,0 // GREEN
+Endon
+
+On ha_system#switch1=0 do
+  Neopixel,1,255,0,0 // RED
+Endon
+// END
+
+// HA Turns off switch
+On ha_system#switch2=1 do
+  neopixel,2,0,255,0 // GREEN
+Endon
+
+On ha_system#switch2=0 do
+  Neopixel,2,255,0,0 // RED
+Endon
+// END
+
 // MOTION ACTIONS AND COLORS OF SCENES
 On ha_system#motion=1 do
   If [ha_scene#goodnight]=0
@@ -24,7 +44,7 @@ On ha_system#motion=0 do
     NeopixelALL,20,0,0 // RED
   Endif
 Endon
-// END MOTION ACTIONS AND COLORS OF SCENES
+// END
 
 // SCENES COLORS BASED ON SCENE EVENT IN HA
 On ha_dn#evening=1 do
@@ -50,7 +70,7 @@ Endon
 On ha_scene#appletv=1 do
   NeopixelALL,100,100,0 // YELLOW
 Endon
-// END SCENES COLORS BASED ON SCENE EVENT IN HA
+// END
 
 // START BOOT ACTIONS
 On System#Boot do
@@ -71,7 +91,7 @@ Endon
 On Rules#Timer=7 do
   TaskValueSet 3,3,0
 Endon
-// END START BOOT ACTIONS
+// END
 
 // CALIBRATION TOUCH SENSOR
 On CalibrateTouch do
@@ -80,7 +100,7 @@ On CalibrateTouch do
   TimerSet,8,3
   NeopixelALL,50,0,0
 Endon
-// END CALIBRATION TOUCH SENSOR
+// END
 
 // RESET Wi-Fi CREDENTIALS
 On resetwifi do
@@ -89,4 +109,4 @@ On resetwifi do
   Reboot
   Save
 Endon
-// END RESET Wi-Fi CREDENTIALS
+// END
