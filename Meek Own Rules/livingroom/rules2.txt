@@ -1,35 +1,41 @@
-On touch2#touch2=1 do
-  If [ha_system#switch2]=0
-    Publish Milight_Hub/0xAABB/rgb_cct/1,'{"status":"ON","brightness":"255"}'
-    Publish homeassistant/ha_switches/wall,1
-    TaskValueSet 11,2,1
-
-    If [ha_scene#goodnight]=0
-      neopixel,2,0,255,0 // GREEN
-    elseif [ha_scene#goodnight]=1
-      neopixel,2,0,20,0 // GREEN
-    Endif
-
-  elseif [ha_system#switch2]=1
-    Publish Milight_Hub/0xAABB/rgb_cct/1,'{"status":"OFF"}'
-    Publish homeassistant/ha_switches/wall,0
-    TaskValueSet 11,2,0
-    If [ha_scene#goodnight]=0
-
-      If [ha_scene#appletv]=1
-        Neopixel,2,100,100,0 // YELLOW
-      elseif [ha_scene#tv]=1
-        Neopixel,2,0,70,100 // LIGHT BLUE
-      elseif [ha_scene#kodi]=1
-        Neopixel,2,255,0,255 // PINK
-      elseif [ha_dn#evening]=1
-        Neopixel,2,255,0,0 // RED
-      elseif [ha_dn#daytime]=1
-        Neopixel,2,255,0,0 // RED
-      Endif
-
-    elseif [ha_scene#goodnight]=1
-      neopixel,2,20,0,0 // RED
-    Endif
+// SWITCH TURN ON BY HA
+On ha_sys#sw2=1 do
+  If [ha_sc#gn]=0
+    neopixel,2,0,255,0
+  elseif [ha_sc#gn]=1
+    neopixel,2,0,10,0
   Endif
 Endon
+
+On ha_sys#sw2=0 do
+  If [ha_sc#gn]=0
+    If [ha_sc#atv]=1
+      Neopixel,2,100,100,0
+    elseif [ha_sc#tv]=1
+      Neopixel,2,0,70,100
+    elseif [ha_sc#kodi]=1
+      Neopixel,2,255,0,255
+    elseif [ha_dn#ev]=1
+      Neopixel,2,255,0,0
+    elseif [ha_dn#dt]=1
+      Neopixel,2,255,0,0
+    Endif
+  elseif [ha_sc#gn]=1
+    neopixel,2,10,0,0
+  Endif
+Endon
+// END
+
+// WHEN TOUCH USED ON MEEK
+on t2#t2=1 do
+  If [ha_sys#sw2]=0
+    Publish Milight_Hub/0xAABB/rgb_cct/1,'{"state":"on","brightness":"255"}'
+    Publish homeassistant/ha_switches/wall,1
+    TaskValueSet 11,2,1
+  elseif [ha_sys#sw2]=1
+    Publish Milight_Hub/0xAABB/rgb_cct/1,'{"state":"off"}'
+    Publish homeassistant/ha_switches/wall,0
+    TaskValueSet 11,2,0
+  Endif
+endon
+// END

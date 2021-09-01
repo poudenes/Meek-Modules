@@ -1,84 +1,41 @@
-On touch1#touch1=1 do
-  If [ha_system#switch1]=0
+// SWITCH TURN ON BY HA
+On ha_sys#sw1=1 do
+  If [ha_sc#gn]=0
+    Neopixel,1,0,255,0
+  elseif [ha_sc#gn]=1
+    Neopixel,1,0,10,0
+  Endif
+Endon
+
+On ha_sys#sw1=0 do
+  If [ha_sc#gn]=0
+    If [ha_sc#atv]=1
+      Neopixel,1,100,100,0
+    elseif [ha_sc#tv]=1
+      Neopixel,1,0,70,100
+    elseif [ha_sc#kodi]=1
+      Neopixel,1,255,0,255
+    elseif [ha_dn#ev]=1
+      Neopixel,1,255,0,0
+    elseif [ha_dn#dt]=1
+      Neopixel,1,255,0,0
+    Endif
+  elseif [ha_sc#gn]=1
+    Neopixel,1,10,0,0
+  Endif
+Endon
+// END
+
+// WHEN TOUCH USED ON MEEK
+on t1#t1=1 do
+  If [ha_sys#sw1]=0
     Publish Milight_Hub/0xAABA/rgb_cct/1,'{"state":"on","brightness":"255"}'
     Publish homeassistant/ha_switches/bedroom,1
     TaskValueSet 11,1,1
-
-    If [ha_scene#goodnight]=0
-      neopixel,1,0,255,0 // GREEN
-    elseif [ha_scene#goodnight]=1
-      neopixel,1,0,20,0 // GREEN
-    Endif
-
-  elseif [ha_system#switch1]=1
+  elseif [ha_sys#sw1]=1
     Publish Milight_Hub/0xAABA/rgb_cct/1,'{"state":"off"}'
     Publish homeassistant/ha_switches/bedroom,0
     TaskValueSet 11,1,0
-    If [ha_scene#goodnight]=0
-
-      If [ha_scene#appletv]=1
-        Neopixel,1,100,100,0 // YELLOW
-      elseif [ha_scene#tv]=1
-        Neopixel,1,0,70,100 // LIGHT BLUE
-      elseif [ha_scene#kodi]=1
-        Neopixel,1,255,0,255 // PINK
-      elseif [ha_dn#evening]=1
-        Neopixel,1,255,0,0 // RED
-      elseif [ha_dn#daytime]=1
-        Neopixel,1,255,0,0 // RED
-      Endif
-
-    elseif [ha_scene#goodnight]=1
-      neopixel,1,20,0,0 // RED
-    Endif
   Endif
-Endon
-
-On ha_system#motion=1 do
-  If [ha_scene#goodnight]=0
-    neopixel,1,0,0,255 // BLUE
-
-  elseif [ha_scene#goodnight]=1
-    neopixel,1,0,0,80 // BLUE
-  Endif
-Endon
-
-On ha_system#motion=0 do
-  If [ha_scene#goodnight]=0
-
-    If [ha_scene#appletv]=1
-      Neopixel,1,100,100,0 // YELLOW
-    elseif [ha_scene#tv]=1
-      Neopixel,1,0,70,100 // LIGHT BLUE
-    elseif [ha_scene#kodi]=1
-      Neopixel,1,255,0,255 // PINK
-    elseif [ha_dn#evening]=1
-      Neopixel,1,255,0,0 // RED
-    elseif [ha_dn#daytime]=1
-      Neopixel,1,255,0,0 // RED
-    Endif
-
-  elseif [ha_scene#goodnight]=1
-    neopixel,1,20,0,0 // RED
-  Endif
-Endon
-
-// HA Control switch
-On ha_system#switch1=1 do
-  If [ha_scene#goodnight]=0
-    neopixel,1,0,255,0
-
-  elseif [ha_scene#goodnight]=1
-    neopixel,1,0,20,0
-  Endif
-Endon
-
-On ha_system#switch1=0 do
-  If [ha_scene#goodnight]=0
-    neopixel,1,255,0,0
-
-  elseif [ha_scene#goodnight]=1
-    neopixel,1,20,0,0
-  Endif
-Endon
+endon
 // END

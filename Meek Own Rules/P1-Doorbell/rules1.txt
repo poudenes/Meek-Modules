@@ -1,19 +1,20 @@
 on DoorBell#Button do
-if [Meek#Bell]=0
-play,1
-TaskValueSet 6,1,1
-timerSet,1,5
-Neopixel,1,100,0,0
-endif
+  if [Door#Bell]=0
+    TaskValueSet 7,1,1
+    Publish homeassistant/ha_switches/bell,1
+    timerSet,1,5
+    Neopixel,1,0,255,0
+  endif
 endon
 
 on Rules#Timer=1 do
-TaskValueSet 6,1,0
-Neopixel,1,0,130,0
+  Publish homeassistant/ha_switches/bell,0
+  TaskValueSet 7,1,0
+  Neopixel,1,255,0,0
 endon
 
 On System#Boot do
-vol,20
-Neopixel,1,0,30,10
-TaskValueSet 5,1,0
+  vol,20
+  Neopixel,1,0,0,255
+  TaskValueSet 7,1,0
 Endon
