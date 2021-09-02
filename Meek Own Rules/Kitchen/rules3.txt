@@ -1,41 +1,35 @@
 // SWITCH TURN ON BY HA
 On ha_sys#sw3=1 do
-  If [ha_sc#gn]=0
-    neopixel,3,0,255,0
-  elseif [ha_sc#gn]=1
-    neopixel,3,0,10,0
+  If [ha_dn#gn]=0 Neopixel,3,0,255,0
+  Else Neopixel,3,0,10,0
   Endif
 Endon
 
 On ha_sys#sw3=0 do
-  If [ha_sc#gn]=0
-    If [ha_sc#atv]=1
-      Neopixel,3,100,100,0
-    elseif [ha_sc#tv]=1
-      Neopixel,3,0,70,100
-    elseif [ha_sc#kodi]=1
-      Neopixel,3,255,0,255
-    elseif [ha_dn#ev]=1
-      Neopixel,3,255,0,0
-    elseif [ha_dn#dt]=1
-      Neopixel,3,255,0,0
+  If [ha_dn#gn]=0
+    If [ha_dn#ev]=1 Neopixel,3,255,0,0
+    Elseif [ha_dn#dt]=1 Neopixel,3,255,0,0
+    Elseif [ha_sc#tv]=1 Neopixel,3,0,70,100
+    Elseif [ha_sc#atv]=1 Neopixel,3,100,100,0
+    Elseif [ha_sc#kodi]=1 Neopixel,3,255,0,255
     Endif
-  elseif [ha_sc#gn]=1
-    neopixel,3,10,0,0
+  Else neopixel,3,10,0,0
   Endif
 Endon
 // END
 
 // WHEN TOUCH USED ON MEEK
-on t3#t3=1 do
+On t3#t3=1 do
   If [ha_sys#sw3]=0
+    Neopixel,3,0,255,0
     Publish Milight_Hub/0xAAA1/rgb_cct/0,'{"state":"on","brightness":"255"}'
     Publish homeassistant/ha_switches/kitchensink,1
     TaskValueSet 11,3,1
-  elseif [ha_sys#sw3]=1
+  Else
+    Neopixel,3,255,0,0
     Publish Milight_Hub/0xAAA1/rgb_cct/0,'{"state":"off"}'
     Publish homeassistant/ha_switches/kitchensink,0
     TaskValueSet 11,3,0
   Endif
-endon
+Endon
 // END

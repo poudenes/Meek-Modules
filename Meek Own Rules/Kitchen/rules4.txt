@@ -1,50 +1,31 @@
 // WHEN MOTION IS DETECTED
 On ha_sys#mot=1 do
-  If [ha_sc#gn]=0
-    NeopixelALL,0,0,255
-  elseif [ha_sc#gn]=1
-    NeopixelALL,0,0,10
+  If [ha_dn#gn]=0 NeopixelALL,0,0,255
+  Else NeopixelALL,0,0,10
   Endif
 Endon
 
 On ha_sys#mot=0 do
-  If [ha_sc#gn]=0
-    If [ha_sc#atv]=1
-      NeopixelALL,100,100,0
-    elseif [ha_sc#tv]=1
-      NeopixelALL,0,70,100
-    elseif [ha_sc#kodi]=1
-      NeopixelALL,255,0,255
-    elseif [ha_dn#ev]=1
-      NeopixelALL,255,0,0
-    elseif [ha_dn#dt]=1
-      NeopixelALL,255,0,0
+  If [ha_dn#gn]=0
+    If [ha_sc#atv]=1 NeopixelALL,100,100,0
+    Elseif [ha_sc#tv]=1 NeopixelALL,0,70,100
+    Elseif [ha_sc#kodi]=1 NeopixelALL,255,0,255
+    Elseif [ha_dn#ev]=1 NeopixelALL,255,0,0
+    Elseif [ha_dn#dt]=1 NeopixelALL,255,0,0
     Endif
-  elseif [ha_sc#gn]=1
-    NeopixelALL,10,0,0
+  Else NeopixelALL,10,0,0
   Endif
 Endon
 // END
 
 // SCENES COLORS BASED ON SCENE EVENT IN HA
-On ha_dn#ev=1 do
-  NeopixelALL,255,0,0 // RED
-Endon
-On ha_dn#dt=1 do
-  NeopixelALL,255,0,0 // RED
-Endon
-On ha_sc#dn=1 do
-  NeopixelALL,10,0,0 // RED
-Endon
-On ha_sc#kodi=1 do
-  NeopixelALL,100,0,100 // PINK
-Endon
-On ha_sc#tv=1 do
-  NeopixelALL,0,70,100 // LIGHT BLUE
-Endon
-On ha_sc#atv=1 do
-  NeopixelALL,100,100,0 // YELLOW
-Endon
+On ha_dn#ev=1 do NeopixelALL,255,0,0 Endon // RED
+On ha_dn#gn=1 do NeopixelALL,10,0,0 Endon // RED
+On ha_dn#dt=1 do NeopixelALL,255,0,0 Endon // RED
+On ha_sc#dn=1 do NeopixelALL,10,0,0 Endon // RED
+On ha_sc#kodi=1 do NeopixelALL,100,0,100 Endon // PINK
+On ha_sc#tv=1 do NeopixelALL,0,70,100 Endon // LIGHT BLUE
+On ha_sc#atv=1 do NeopixelALL,100,100,0 Endon // YELLOW
 // END
 
 // START BOOT ACTIONS
