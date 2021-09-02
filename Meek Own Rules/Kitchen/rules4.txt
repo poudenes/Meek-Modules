@@ -28,19 +28,26 @@ Endon
 
 // SCENES COLORS BASED ON SCENE EVENT IN HA
 On ha_dn#ev=1 do
-  NeopixelALL,255,0,0 Endon // RED
+  NeopixelALL,255,0,0 // RED
+Endon
 On ha_dn#gn=1 do
-  NeopixelALL,10,0,0 Endon // RED
+  NeopixelALL,10,0,0 // RED
+Endon
 On ha_dn#dt=1 do
-  NeopixelALL,255,0,0 Endon // RED
+  NeopixelALL,255,0,0 // RED
+Endon
 On ha_sc#dn=1 do
-  NeopixelALL,10,0,0 Endon // RED
+  NeopixelALL,10,0,0 // RED
+Endon
 On ha_sc#tv=1 do
-  NeopixelALL,0,70,100 Endon // LIGHT BLUE
+  NeopixelALL,0,70,100 // LIGHT BLUE
+Endon
 On ha_sc#atv=1 do
-  NeopixelALL,100,100,0 Endon // YELLOW
+  NeopixelALL,100,100,0 // YELLOW
+Endon
 On ha_sc#kodi=1 do
-  NeopixelALL,100,0,100 Endon // PINK
+  NeopixelALL,100,0,100 // PINK
+Endon
 // END
 
 // START BOOT ACTIONS
