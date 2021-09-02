@@ -1,74 +1,47 @@
 // WHEN MOTION IS DETECTED
 On ha_sys#mot=1 do
-  If [ha_sc#gn]=0
+  If [ha_dn#gn]=0
     NeopixelALL,0,0,255
-    gpio 5,1 // FAN
-    TaskValueSet 11,2,1
+    GPIO 5,1 // FAN
     Publish homeassistant/ha_other/fan_toilet,1
 
-  elseif [ha_sc#gn]=1 and [ha_sys#gst]=1
+  Elseif [ha_sc#gn]=1 and [ha_sys#gst]=1
     NeopixelALL,0,0,80
-    gpio 5,1 // FAN
-    TaskValueSet 11,2,1
+    GPIO 5,1 // FAN
     Publish homeassistant/ha_other/fan_toilet,1
 
-  elseif [ha_sc#gn]=1 and [ha_sys#gst]=0
+  Else [ha_dn#gn]=1 and [ha_sys#gst]=0
     NeopixelALL,0,0,80
-    TaskValueSet 11,2,1
   Endif
 Endon
 
 On ha_sys#mot=0 do
-  If [ha_sc#gn]=0
-    If [ha_sc#atv]=1
-      NeopixelALL,100,100,0
-    elseif [ha_sc#tv]=1
-      NeopixelALL,0,70,100
-    elseif [ha_sc#kodi]=1
-      NeopixelALL,255,0,255
-    elseif [ha_dn#ev]=1
-      NeopixelALL,255,0,0
-    elseif [ha_dn#dt]=1
-      NeopixelALL,255,0,0
+  If [ha_dn#gn]=0
+    If [ha_sc#atv]=1 NeopixelALL,100,100,0
+    Elseif [ha_sc#tv]=1 NeopixelALL,0,70,100
+    Elseif [ha_sc#kodi]=1 NeopixelALL,255,0,255
+    Elseif [ha_dn#ev]=1 NeopixelALL,255,0,0
+    Elseif [ha_dn#dt]=1 NeopixelALL,255,0,0
     Endif
-    gpio 5,0 // FAN
-    TaskValueSet 11,2,0
+    Gpio 5,0 // FAN
     Publish homeassistant/ha_other/fan_toilet,0
 
-  elseif [ha_sc#gn]=1
+  elseif [ha_dn#gn]=1
     NeopixelALL,10,0,0
-    gpio 5,0 // FAN
-    TaskValueSet 11,2,0
+    GPIO 5,0 // FAN
     Publish homeassistant/ha_other/fan_toilet,0
   Endif
 Endon
 // END
 
 // SCENES COLORS BASED ON SCENE EVENT IN HA
-On ha_sc#goodnight=1 do
-  NeopixelALL,50,0,0
-Endon
-On ha_sc#goodnight=0 do
-  NeopixelALL,255,0,0
-Endon
-On ha_sc#kodi=1 do
-  NeopixelALL,255,0,255
-Endon
-On ha_sc#kodi=0 do
-  NeopixelALL,255,0,0
-Endon
-On ha_sc#tv=1 do
-  NeopixelALL,255,0,255
-Endon
-On ha_sc#tv=0 do
-  NeopixelALL,255,0,0
-Endon
-On ha_sc#appletv=1 do
-  NeopixelALL,255,0,255
-Endon
-On ha_sc#appletv=0 do
-  NeopixelALL,255,0,0
-Endon
+On ha_dn#ev=1 do NeopixelALL,255,0,0 Endon // RED
+On ha_dn#gn=1 do NeopixelALL,10,0,0 Endon // RED
+On ha_dn#dt=1 do NeopixelALL,255,0,0 Endon // RED
+On ha_sc#dn=1 do NeopixelALL,10,0,0 Endon // RED
+On ha_sc#kodi=1 do NeopixelALL,100,0,100 Endon // PINK
+On ha_sc#tv=1 do NeopixelALL,0,70,100 Endon // LIGHT BLUE
+On ha_sc#atv=1 do NeopixelALL,100,100,0 Endon // YELLOW
 // END
 
 // Boot Initialization
@@ -83,11 +56,6 @@ Endon
 On Rules#Timer=8 do
   GPIO,16,1
   NeopixelAll,50,50,50
-  TimerSet,7,2
-Endon
-
-On Rules#Timer=7 do
-  TaskValueSet 3,3,0
 Endon
 // END
 

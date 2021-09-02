@@ -1,27 +1,19 @@
 // SWITCH TURN ON BY HA
 On ha_sys#sw1=1 do
-  If [ha_sc#gn]=0
-    neopixel,1,0,255,0
-  elseif [ha_sc#gn]=1
-    neopixel,1,0,10,0
+  If [ha_dn#gn]=0 Neopixel,1,0,255,0
+  Else [ha_dn#gn]=1 Neopixel,1,0,10,0
   Endif
 Endon
 
 On ha_sys#sw1=0 do
-  If [ha_sc#gn]=0
-    If [ha_sc#atv]=1
-      Neopixel,1,100,100,0
-    elseif [ha_sc#tv]=1
-       Neopixel,1,0,70,100
-     elseif [ha_sc#kodi]=1
-       Neopixel,1,255,0,255
-     elseif [ha_dn#ev]=1
-       Neopixel,1,255,0,0
-     elseif [ha_dn#dt]=1
-       Neopixel,1,255,0,0
-     Endif
-  elseif [ha_sc#gn]=1
-    neopixel,1,10,0,0
+  If [ha_dn#gn]=0
+    If [ha_dn#ev]=1 Neopixel,1,255,0,0
+    Elseif [ha_dn#dt]=1 Neopixel,1,255,0,0
+    Elseif [ha_sc#tv]=1 Neopixel,1,0,70,100
+    Elseif [ha_sc#atv]=1 Neopixel,1,100,100,0
+    Elseif [ha_sc#kodi]=1 Neopixel,1,255,0,255
+    Endif
+  Else Neopixel,1,10,0,0
   Endif
 Endon
 // END
@@ -29,30 +21,16 @@ Endon
 // WHEN TOUCH USED ON MEEK
 On t1#t1=1 do
   If [ha_sys#sw1]=0
+    Neopixel,1,0,255,0
     Publish homeassistant/ha_switches/toilet,1
     Publish homeassistant/ha_other/fan_toilet,1
-    TaskValueSet 11,1,1
-    TaskValueSet 11,2,1
-    If [ha_sc#gn]=0
-      neopixel,1,0,255,0
-    elseif [ha_sc#gn]=1
-      neopixel,1,0,20,0
-    Endif
+    GPIO 5,1
 
-  elseif [ha_sys#sw1]=1
+  Else [ha_sys#sw1]=1
+    Neopixel,1,255,0,0
     Publish homeassistant/ha_switches/toilet,0
     Publish homeassistant/ha_other/fan_toilet,0
-    TaskValueSet 11,1,0
-    TaskValueSet 11,2,0
+    GPIO 5,0
   Endif
-Endon
-// END
-
-// HA TURNS FAN ON
-On ha_system#fan=1 do
-  gpio 5,1
-Endon
-On ha_system#fan=0 do
-  gpio 5,0
 Endon
 // END
