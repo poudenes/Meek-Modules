@@ -4,12 +4,10 @@ On ha_sys#mot=1 do
     NeopixelALL,0,0,255
     GPIO 5,1 // FAN
     Publish homeassistant/ha_other/fan_toilet,1
-
   Elseif [ha_sc#gn]=1 and [ha_sys#gst]=1
     NeopixelALL,0,0,80
     GPIO 5,1 // FAN
     Publish homeassistant/ha_other/fan_toilet,1
-
   Else [ha_dn#gn]=1 and [ha_sys#gst]=0
     NeopixelALL,0,0,80
   Endif
@@ -17,15 +15,19 @@ Endon
 
 On ha_sys#mot=0 do
   If [ha_dn#gn]=0
-    If [ha_sc#atv]=1 NeopixelALL,100,100,0
-    Elseif [ha_sc#tv]=1 NeopixelALL,0,70,100
-    Elseif [ha_sc#kodi]=1 NeopixelALL,255,0,255
-    Elseif [ha_dn#ev]=1 NeopixelALL,255,0,0
-    Elseif [ha_dn#dt]=1 NeopixelALL,255,0,0
+    If [ha_sc#atv]=1
+      NeopixelALL,100,100,0
+    Elseif [ha_sc#tv]=1
+      NeopixelALL,0,70,100
+    Elseif [ha_sc#kodi]=1
+      NeopixelALL,255,0,255
+    Elseif [ha_dn#ev]=1
+      NeopixelALL,255,0,0
+    Elseif [ha_dn#dt]=1
+      NeopixelALL,255,0,0
     Endif
     Gpio 5,0 // FAN
     Publish homeassistant/ha_other/fan_toilet,0
-
   elseif [ha_dn#gn]=1
     NeopixelALL,10,0,0
     GPIO 5,0 // FAN
@@ -35,13 +37,20 @@ Endon
 // END
 
 // SCENES COLORS BASED ON SCENE EVENT IN HA
-On ha_dn#ev=1 do NeopixelALL,255,0,0 Endon // RED
-On ha_dn#gn=1 do NeopixelALL,10,0,0 Endon // RED
-On ha_dn#dt=1 do NeopixelALL,255,0,0 Endon // RED
-On ha_sc#dn=1 do NeopixelALL,10,0,0 Endon // RED
-On ha_sc#kodi=1 do NeopixelALL,100,0,100 Endon // PINK
-On ha_sc#tv=1 do NeopixelALL,0,70,100 Endon // LIGHT BLUE
-On ha_sc#atv=1 do NeopixelALL,100,100,0 Endon // YELLOW
+On ha_dn#ev=1 do
+  NeopixelALL,255,0,0 Endon // RED
+On ha_dn#gn=1 do
+  NeopixelALL,10,0,0 Endon // RED
+On ha_dn#dt=1 do
+  NeopixelALL,255,0,0 Endon // RED
+On ha_sc#dn=1 do
+  NeopixelALL,10,0,0 Endon // RED
+On ha_sc#kodi=1 do
+  NeopixelALL,100,0,100 Endon // PINK
+On ha_sc#tv=1 do
+  NeopixelALL,0,70,100 Endon // LIGHT BLUE
+On ha_sc#atv=1 do
+  NeopixelALL,100,100,0 Endon // YELLOW
 // END
 
 // Boot Initialization

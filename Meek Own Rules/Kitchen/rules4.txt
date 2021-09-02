@@ -1,31 +1,46 @@
 // WHEN MOTION IS DETECTED
 On ha_sys#mot=1 do
-  If [ha_dn#gn]=0 NeopixelALL,0,0,255
-  Else NeopixelALL,0,0,10
+  If [ha_dn#gn]=0
+    NeopixelALL,0,0,255
+  Else
+    NeopixelALL,0,0,10
   Endif
 Endon
 
 On ha_sys#mot=0 do
   If [ha_dn#gn]=0
-    If [ha_sc#atv]=1 NeopixelALL,100,100,0
-    Elseif [ha_sc#tv]=1 NeopixelALL,0,70,100
-    Elseif [ha_sc#kodi]=1 NeopixelALL,255,0,255
-    Elseif [ha_dn#ev]=1 NeopixelALL,255,0,0
-    Elseif [ha_dn#dt]=1 NeopixelALL,255,0,0
+    If [ha_sc#atv]=1
+      NeopixelALL,100,100,0
+    Elseif [ha_sc#tv]=1
+      NeopixelALL,0,70,100
+    Elseif [ha_dn#ev]=1
+      NeopixelALL,255,0,0
+    Elseif [ha_dn#dt]=1
+      NeopixelALL,255,0,0
+    Elseif [ha_sc#kodi]=1
+      NeopixelALL,255,0,255
     Endif
-  Else NeopixelALL,10,0,0
+  Else
+    NeopixelALL,10,0,0
   Endif
 Endon
 // END
 
 // SCENES COLORS BASED ON SCENE EVENT IN HA
-On ha_dn#ev=1 do NeopixelALL,255,0,0 Endon // RED
-On ha_dn#gn=1 do NeopixelALL,10,0,0 Endon // RED
-On ha_dn#dt=1 do NeopixelALL,255,0,0 Endon // RED
-On ha_sc#dn=1 do NeopixelALL,10,0,0 Endon // RED
-On ha_sc#kodi=1 do NeopixelALL,100,0,100 Endon // PINK
-On ha_sc#tv=1 do NeopixelALL,0,70,100 Endon // LIGHT BLUE
-On ha_sc#atv=1 do NeopixelALL,100,100,0 Endon // YELLOW
+On ha_dn#ev=1 do
+  NeopixelALL,255,0,0 Endon // RED
+On ha_dn#gn=1 do
+  NeopixelALL,10,0,0 Endon // RED
+On ha_dn#dt=1 do
+  NeopixelALL,255,0,0 Endon // RED
+On ha_sc#dn=1 do
+  NeopixelALL,10,0,0 Endon // RED
+On ha_sc#tv=1 do
+  NeopixelALL,0,70,100 Endon // LIGHT BLUE
+On ha_sc#atv=1 do
+  NeopixelALL,100,100,0 Endon // YELLOW
+On ha_sc#kodi=1 do
+  NeopixelALL,100,0,100 Endon // PINK
 // END
 
 // START BOOT ACTIONS
@@ -34,22 +49,21 @@ On System#Boot do
   TaskValueSet 11,2,0
   TaskValueSet 11,3,0
   TaskValueSet 11,4,0
-  GPIO,16,0
+  GPIO,16,0 // TOUCH POWER
   NeopixelALL,0,255,0
   TimerSet,8,5
 Endon
 
-On Rules#Timer=8 do
-  GPIO,16,1
-  NeopixelALL,0,255,255
-Endon
-
-// CALIBRATION TOUCH SENSOR
 On CalibrateTouch do
   TaskValueSet 3,3,1
-  GPIO,16,0
+  GPIO,16,0 // TOUCH POWER
   TimerSet,8,3
   NeopixelALL,255,0,0
+Endon
+
+On Rules#Timer=8 do
+  GPIO,16,1 // TOUCH POWER
+  NeopixelALL,0,255,255
 Endon
 // END
 
