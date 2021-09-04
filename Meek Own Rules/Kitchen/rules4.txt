@@ -2,7 +2,7 @@
 On ha_sys#mot=1 do
   If [ha_dn#gn]=0
     NeopixelALL,0,0,255
-  Else
+  elseif [ha_dn#gn]=1
     NeopixelALL,0,0,10
   Endif
 Endon
@@ -11,16 +11,16 @@ On ha_sys#mot=0 do
   If [ha_dn#gn]=0
     If [ha_sc#atv]=1
       NeopixelALL,100,100,0
-    Elseif [ha_sc#tv]=1
+    elseif [ha_sc#tv]=1
       NeopixelALL,0,70,100
-    Elseif [ha_dn#ev]=1
-      NeopixelALL,255,0,0
-    Elseif [ha_dn#dt]=1
-      NeopixelALL,255,0,0
-    Elseif [ha_sc#kodi]=1
+    elseif [ha_sc#kodi]=1
       NeopixelALL,255,0,255
+    elseif [ha_dn#ev]=1
+      NeopixelALL,255,0,0
+    elseif [ha_dn#dt]=1
+      NeopixelALL,255,0,0
     Endif
-  Else
+  elseif [ha_dn#gn]=1
     NeopixelALL,10,0,0
   Endif
 Endon
@@ -30,14 +30,14 @@ Endon
 On ha_dn#ev=1 do
   NeopixelALL,255,0,0 // RED
 Endon
-On ha_dn#gn=1 do
-  NeopixelALL,10,0,0 // RED
-Endon
 On ha_dn#dt=1 do
   NeopixelALL,255,0,0 // RED
 Endon
-On ha_sc#dn=1 do
+On ha_dn#gn=1 do
   NeopixelALL,10,0,0 // RED
+Endon
+On ha_sc#kodi=1 do
+  NeopixelALL,100,0,100 // PINK
 Endon
 On ha_sc#tv=1 do
   NeopixelALL,0,70,100 // LIGHT BLUE
@@ -45,36 +45,33 @@ Endon
 On ha_sc#atv=1 do
   NeopixelALL,100,100,0 // YELLOW
 Endon
-On ha_sc#kodi=1 do
-  NeopixelALL,100,0,100 // PINK
-Endon
 // END
 
-// START BOOT ACTIONS
+// START Boot
 On System#Boot do
   TaskValueSet 11,1,0
   TaskValueSet 11,2,0
   TaskValueSet 11,3,0
   TaskValueSet 11,4,0
-  GPIO,16,0 // TOUCH POWER
-  NeopixelALL,0,255,0
+  GPIO,16,0
+  NeopixelAll,0,255,0
   TimerSet,8,5
 Endon
 
-On CalibrateTouch do
-  TaskValueSet 3,3,1
-  GPIO,16,0 // TOUCH POWER
-  TimerSet,8,3
-  NeopixelALL,255,0,0
-Endon
-
 On Rules#Timer=8 do
-  GPIO,16,1 // TOUCH POWER
-  NeopixelALL,0,255,255
+  GPIO,16,1
+  NeopixelAll,0,255,255
 Endon
 // END
 
-// RESET Wi-Fi CREDENTIALS
+// Calibration Touch Sensor
+On CalibrateTouch do
+  GPIO,16,0
+  TimerSet,8,3
+  NeopixelAll,255,0,0
+Endon
+
+// Reset Wi-Fi credentials
 On resetwifi do
   WifiSSID
   WifiKey

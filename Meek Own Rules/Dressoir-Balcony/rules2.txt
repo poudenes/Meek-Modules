@@ -1,41 +1,60 @@
 // SWITCH TURN ON BY HA
 On ha_sys#sw2=1 do
-  If [ha_sc#gn]=0
-    neopixel,2,0,255,0
-  elseif [ha_sc#gn]=1
-    neopixel,2,0,20,0
+  If [ha_dn#gn]=0
+    Neopixel,2,0,255,0
+  Else
+    Neopixel,2,0,10,0
   Endif
 Endon
 
 On ha_sys#sw2=0 do
-  If [ha_sc#gn]=0
-    If [ha_sc#atv]=1
+  If [ha_dn#gn]=0
+    If [ha_dn#dt]=1
+      Neopixel,2,255,0,0
+    Elseif [ha_sc#kodi]=1
+      Neopixel,2,255,0,255
+    Elseif [ha_sc#tv]=1
+      Neopixel,2,0,70,100
+    Elseif [ha_sc#atv]=1
       Neopixel,2,100,100,0
-    elseif [ha_sc#tv]=1
-       Neopixel,2,0,70,100
-     elseif [ha_sc#kodi]=1
-       Neopixel,2,255,0,255
-     elseif [ha_dn#ev]=1
-       Neopixel,2,255,0,0
-     elseif [ha_dn#dt]=1
-       Neopixel,2,255,0,0
-     Endif
-  elseif [ha_sc#gn]=1
-    neopixel,2,20,0,0
+    Elseif [ha_dn#ev]=1
+      Neopixel,2,255,0,0
+    Endif
+  Else
+    Neopixel,2,10,0,0
   Endif
 Endon
 // END
 
 // WHEN TOUCH USED ON MEEK
-on t2#t2=1 do
+On t2#t2=1 do
   If [ha_sys#sw2]=0
+    If [ha_dn#gn]=0
+      Neopixel,2,0,255,0
+    Else
+      Neopixel,2,0,10,0
+    Endif
     Publish Milight_Hub/0xAAA4/rgb_cct/1,'{"state":"on","brightness":"255"}'
     Publish homeassistant/ha_switches/balcony,1
-    TaskValueSet 11,2,1
-  elseif [ha_sys#sw2]=1
+
+  Elseif [ha_sys#sw2]=1
+    If [ha_dn#gn]=0
+      If [ha_dn#ev]=1
+        Neopixel,2,255,0,0
+      Elseif [ha_dn#dt]=1
+        Neopixel,2,255,0,0
+      Elseif [ha_sc#tv]=1
+        Neopixel,2,0,70,100
+      Elseif [ha_sc#atv]=1
+        Neopixel,2,100,100,0
+      Elseif [ha_sc#kodi]=1
+        Neopixel,2,255,0,255
+      Endif
+    Else
+      Neopixel,2,10,0,0
+    Endif
     Publish Milight_Hub/0xAAA4/rgb_cct/1,'{"state":"off"}'
     Publish homeassistant/ha_switches/balcony,0
-    TaskValueSet 11,2,0
   Endif
-endon
+Endon
 // END

@@ -1,14 +1,14 @@
 // WHEN MOTION IS DETECTED
 On ha_sys#mot=1 do
-  If [ha_sc#gn]=0
+  If [ha_dn#gn]=0
     NeopixelALL,0,0,255
-  elseif [ha_sc#gn]=1
+  elseif [ha_dn#gn]=1
     NeopixelALL,0,0,10
   Endif
 Endon
 
 On ha_sys#mot=0 do
-  If [ha_sc#gn]=0
+  If [ha_dn#gn]=0
     If [ha_sc#atv]=1
       NeopixelALL,100,100,0
     elseif [ha_sc#tv]=1
@@ -20,7 +20,7 @@ On ha_sys#mot=0 do
     elseif [ha_dn#dt]=1
       NeopixelALL,255,0,0
     Endif
-  elseif [ha_sc#gn]=1
+  elseif [ha_dn#gn]=1
     NeopixelALL,10,0,0
   Endif
 Endon
@@ -33,7 +33,7 @@ Endon
 On ha_dn#dt=1 do
   NeopixelALL,255,0,0 // RED
 Endon
-On ha_sc#gn=1 do
+On ha_dn#gn=1 do
   NeopixelALL,10,0,0 // RED
 Endon
 On ha_sc#kodi=1 do
@@ -47,7 +47,7 @@ On ha_sc#atv=1 do
 Endon
 // END
 
-// START BOOT ACTIONS
+// START Boot
 On System#Boot do
   TaskValueSet 11,1,0
   TaskValueSet 11,2,0
@@ -63,15 +63,14 @@ On Rules#Timer=8 do
 Endon
 // END
 
-// CALIBRATION TOUCH SENSOR
+// Calibration Touch Sensor
 On CalibrateTouch do
   GPIO,16,0
   TimerSet,8,3
   NeopixelAll,255,0,0
 Endon
-// END
 
-// RESET Wi-Fi CREDENTIALS
+// Reset Wi-Fi credentials
 On resetwifi do
   WifiSSID
   WifiKey
