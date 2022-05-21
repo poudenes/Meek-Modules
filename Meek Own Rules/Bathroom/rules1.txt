@@ -1,26 +1,26 @@
 // SWITCH TURN ON BY HA
 On ha_sys#sw1=1 do
-  If [ha_dn#gn]=0
+  If [ha_dn#gn]=0 
     Neopixel,1,0,255,0
-  Else
+  Else 
     Neopixel,1,0,10,0
   Endif
 Endon
 
 On ha_sys#sw1=0 do
   If [ha_dn#gn]=0
-    If [ha_dn#dt]=1
+    If [ha_dn#dt]=1 
       Neopixel,1,255,0,0
-    Elseif [ha_sc#kodi]=1
+    Elseif [ha_sc#kodi]=1 
       Neopixel,1,255,0,255
-    Elseif [ha_sc#tv]=1
+    Elseif [ha_sc#tv]=1 
       Neopixel,1,0,70,100
-    Elseif [ha_sc#atv]=1
+    Elseif [ha_sc#atv]=1 
       Neopixel,1,100,100,0
-    Elseif [ha_dn#ev]=1
+    Elseif [ha_dn#ev]=1 
       Neopixel,1,255,0,0
     Endif
-  Else
+  Else 
     Neopixel,1,10,0,0
   Endif
 Endon
@@ -29,17 +29,19 @@ Endon
 // WHEN TOUCH USED ON MEEK
 On t1#t1=1 do
   If [ha_sys#sw1]=0
-    If [ha_dn#gn]=0
+    If [ha_dn#gn]=0 
+      Tone,15,1100,45
       Neopixel,1,0,255,0
-    Else
+    Else 
       Neopixel,1,0,10,0
     Endif
     Publish Milight_Hub/0xAAAD/rgb_cct/0,'{"state":"on","brightness":"255"}'
-    Publish homeassistant/ha_switches/bathroom,1
+    Publish homeassistant/switches/bathroom,1
 
   Elseif [ha_sys#sw1]=1
     If [ha_dn#gn]=0
-      If [ha_dn#ev]=1
+    Tone,15,1100,45
+      If [ha_dn#ev]=1 
         Neopixel,1,255,0,0
       Elseif [ha_dn#dt]=1
         Neopixel,1,255,0,0
@@ -50,11 +52,11 @@ On t1#t1=1 do
       Elseif [ha_sc#kodi]=1
         Neopixel,1,255,0,255
       Endif
-    Else
+    Else 
       Neopixel,1,10,0,0
     Endif
     Publish Milight_Hub/0xAAAD/rgb_cct/0,'{"state":"off"}'
-    Publish homeassistant/ha_switches/bathroom,0
+    Publish homeassistant/switches/bathroom,0
   Endif
 Endon
 // END
