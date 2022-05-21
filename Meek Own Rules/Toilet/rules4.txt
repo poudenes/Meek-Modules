@@ -3,11 +3,11 @@ On ha_sys#mot=1 do
   If [ha_dn#gn]=0
     NeopixelALL,0,0,255
     GPIO 5,1 // FAN
-    Publish homeassistant/ha_other/fan_toilet,1
+    Publish homeassistant/other/fan_toilet,1
   Elseif [ha_dn#gn]=1 and [ha_sys#guest]=1
     NeopixelALL,0,0,80
     GPIO 5,1 // FAN
-    Publish homeassistant/ha_other/fan_toilet,1
+    Publish homeassistant/other/fan_toilet,1
   Elseif [ha_dn#gn]=1 and [ha_sys#guest]=0
     NeopixelALL,0,0,80
   Endif
@@ -15,23 +15,23 @@ Endon
 
 On ha_sys#mot=0 do
   If [ha_dn#gn]=0
-    If [ha_sc#atv]=1
+    If [ha_sc#atv]=1 
       NeopixelALL,100,100,0
-    Elseif [ha_sc#tv]=1
+    Elseif [ha_sc#tv]=1 
       NeopixelALL,0,70,100
-    Elseif [ha_sc#kodi]=1
+    Elseif [ha_sc#kodi]=1 
       NeopixelALL,255,0,255
-    Elseif [ha_dn#ev]=1
+    Elseif [ha_dn#ev]=1 
       NeopixelALL,255,0,0
-    Elseif [ha_dn#dt]=1
+    Elseif [ha_dn#dt]=1 
       NeopixelALL,255,0,0
     Endif
     Gpio 5,0 // FAN
-    Publish homeassistant/ha_other/fan_toilet,0
+    Publish homeassistant/other/fan_toilet,0
   Elseif [ha_dn#gn]=1
     NeopixelALL,10,0,0
     GPIO 5,0 // FAN
-    Publish homeassistant/ha_other/fan_toilet,0
+    Publish homeassistant/other/fan_toilet,0
   Endif
 Endon
 // END
