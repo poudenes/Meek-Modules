@@ -515,3 +515,92 @@ text_sensor:
                 red: 10%
                 green: 0%
                 blue: 10%
+
+  - platform: homeassistant
+    name: "kitchen motion"
+    entity_id: binary_sensor.kitchen_detection
+    id: "motion"
+    on_value:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(motion).state == "on";'
+            then:
+              - if:
+                  condition:
+                    lambda: 'return id(goodnight).state == "on";'
+                  then:
+                    - light.turn_on: 
+                        id: neopixel
+                        brightness: 20%
+                        red: 100%
+                        green: 0%
+                        blue: 0%
+                  else:
+                    - light.turn_on: 
+                        id: neopixel
+                        brightness: 100%
+                        red: 100%
+                        green: 0%
+                        blue: 0%                  
+            else:
+              - if:
+                  condition:
+                    lambda: 'return id(daytime).state == "on";'
+                  then:
+                    - light.turn_on: 
+                        id: neopixel
+                        brightness: 100%
+                        red: 100%
+                        green: 0%
+                        blue: 0%
+              - if:
+                  condition:
+                    lambda: 'return id(kodi).state == "on";'
+                  then:
+                    - light.turn_on: 
+                        id: neopixel
+                        brightness: 100%
+                        red: 93%
+                        green: 0%
+                        blue: 93%
+              - if:
+                  condition:
+                    lambda: 'return id(evening).state == "on";'
+                  then:
+                    - light.turn_on: 
+                        id: neopixel
+                        brightness: 100%
+                        red: 100%
+                        green: 0%
+                        blue: 0%
+              - if:
+                  condition:
+                    lambda: 'return id(appletv).state == "on";'
+                  then:
+                    - light.turn_on: 
+                        id: neopixel
+                        brightness: 100%
+                        red: 55%
+                        green: 55%
+                        blue: 0%
+              - if:
+                  condition:
+                    lambda: 'return id(tv).state == "on";'
+                  then:
+                    - light.turn_on: 
+                        id: neopixel
+                        brightness: 100%
+                        red: 0%
+                        green: 25%
+                        blue: 53%
+              - if:
+                  condition:
+                    lambda: 'return id(nintendo).state == "on";'
+                  then:
+                    - light.turn_on: 
+                        id: neopixel
+                        brightness: 100%
+                        red: 36%
+                        green: 28%
+                        blue: 55%
