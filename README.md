@@ -21,13 +21,13 @@ GPIO Schema:
 New black PCB's
 | MP1: |     |     | MP2: |     |     | MP3: |     |     |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| ==Touch1:== | ==GPIO 12== | *D6* | ==Touch1:== | ==GPIO 14== | *D5* | ==Touch1:== | ==GPIO 14== | *D5* |
-| ~~Dopplet:~~ | ~~GPIO 12~~ |     | ==Touch2:== | ==GPIO 13== | *D7* | ==Touch2:== | ==GPIO 12== | *D6* |
-| \-\-\-\-\-\-\-\-\-\- | \-\-\-\-\-\-\-\-\-\- |     | \-\-\-\-\-\-\-\-\-\-\- | \-\-\-\-\-\-\-\-\-\-\- |     | ==Touch3:== | ==GPIO 13== | *D7* |
+| Touch1: | GPIO 12 | *D6* | Touch1: | GPIO 14 | *D5* | Touch1 | GPIO 14 | *D5* |
+| ~~Dopplet:~~ | ~~GPIO 12~~ |     | Touch2 | GPIO 13 | *D7* | Touch2 | GPIO 12 | *D6* |
+| \-\-\-\-\-\-\-\-\-\- | \-\-\-\-\-\-\-\-\-\- |     | \-\-\-\-\-\-\-\-\-\-\- | \-\-\-\-\-\-\-\-\-\-\- |     | Touch3 | GPIO 13 | *D7* |
 | Output 1: | GPIO 5 | *D1* | Output 1 | GPIO 5 | *D1* | Output 1: | GPIO 5 | *D1* |
 | \-\-\-\-\-\-\-\-\-\-\- | \-\-\-\-\-\-\-\-\-\-\- |     | Output 2: | GPIO 4 | *D2* | Output 2: | GPIO 4 | *D2* |
 | \-\-\-\-\-\-\-\-\-\-\- | \-\-\-\-\-\-\-\-\-\-\- |     | \-\-\-\-\-\-\-\-\-\-\- | \-\-\-\-\-\-\-\-\-\- |     | Output 3: | GPIO 15 | *D8* |
-| ==Speaker:== | ==GPIO 15== |     | ==Speaker:== | ==GPIO 0== |     | ==Speaker:== | ==GPIO 0== |     |
+| Speaker | GPIO 15 |     | Speaker | GPIO 0 |     | Speaker | GPIO 0 |     |
 | NeoPixel: | GPIO 2 | *D4* | NeoPixel: | GPIO 2 | *D4* | NeoPixel: | GPIO 2 | *D4* |
 | Touch Power: | GPIO 16 | *D0* | Touch Power: | GPIO 16 | *D0* | Touch Power: | GPIO 16 | *D0* |
 
