@@ -9,7 +9,8 @@ Im using a Asus ROG Rapture GT-AX11000 Router
 - 802.11ax / Wi-Fi 6 mode: enable (didn't try to disable if this will be better)
 - Wi-Fi Agile Multiband: disable
 - Target Wake Tim: enable
-- Channel Bandwidth: 20 MHz
+- Channels NOT USE: 13, 14 and 15
+- Channel Bandwidth: 20/40 MHz
 - Control Channel: 11 (seems that higher or lower give connection problems)
 - Auth Method: WPA/WPA-2 Personal
 - WPA Encryption: TKIP+AES
