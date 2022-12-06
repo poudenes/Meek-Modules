@@ -1,5 +1,5 @@
 #########################################################
-# Below all fixed settings for kitchen PCB
+# Below all fixed settings for specific PCB
 #########################################################
 substitutions:
   devicename: meek-kitchen
@@ -82,11 +82,14 @@ light:
     type: GRB
     variant: 800KBPS
     pin: ${neopixel}
-    num_leds: 3
+    num_leds: 1 # use 1 for 1 LED, use 2 for 2 LEDS and use 3 for 3 LEDS
     name: "${friendly} - Neopixel"
     restore_mode: ALWAYS_ON
     id: neopixel
 
+#########################################################
+# USE BELOW WHEN YOU HAVE A 1 BUTTON SWITCH
+#########################################################
   - platform: partition
     name: "${friendly} partition - neopixel1"
     restore_mode: ALWAYS_ON
@@ -96,26 +99,32 @@ light:
       - id: neopixel
         from: 0
         to: 0
-  
-  - platform: partition
-    name: "${friendly} partition - neopixel2"
-    restore_mode: ALWAYS_ON
-    default_transition_length: 0s
-    id: neopixel2
-    segments:
-      - id: neopixel
-        from: 1
-        to: 1
 
-  - platform: partition
-    name: "${friendly} partition - neopixel3"
-    restore_mode: ALWAYS_ON
-    default_transition_length: 0s
-    id: neopixel3
-    segments:
-      - id: neopixel
-        from: 2
-        to: 2
+#########################################################
+# USE BELOW WHEN YOU HAVE A 2 BUTTON SWITCH
+#########################################################
+#   - platform: partition
+#     name: "${friendly} partition - neopixel2"
+#     restore_mode: ALWAYS_ON
+#     default_transition_length: 0s
+#     id: neopixel2
+#     segments:
+#       - id: neopixel
+#         from: 1
+#         to: 1
+
+#########################################################
+# USE BELOW WHEN YOU HAVE A 3 BUTTON SWITCH
+# #########################################################
+#   - platform: partition
+#     name: "${friendly} partition - neopixel3"
+#     restore_mode: ALWAYS_ON
+#     default_transition_length: 0s
+#     id: neopixel3
+#     segments:
+#       - id: neopixel
+#         from: 2
+#         to: 2
 
 switch:
   - platform: gpio
@@ -127,6 +136,9 @@ switch:
   - platform: safe_mode
     name: "${friendly} - safe mode"
 
+#########################################################
+# USE BELOW WHEN YOU HAVE A 1 BUTTON SWITCH MODULE
+#########################################################
   - platform: template
     name: "${friendly} - Switch 1"
     restore_state: true
@@ -134,36 +146,54 @@ switch:
     optimistic: true
     icon: mdi:nintendo-switch
 
-  - platform: template
-    name: "${friendly} - switch 2"
-    restore_state: yes
-    id: switch2
-    optimistic: true
-    icon: mdi:nintendo-switch
+#########################################################
+# USE BELOW WHEN YOU HAVE A 2 BUTTON SWITCH MODULE
+#########################################################
+#   - platform: template
+#     name: "${friendly} - switch 2"
+#     restore_state: yes
+#     id: switch2
+#     optimistic: true
+#     icon: mdi:nintendo-switch
 
-  - platform: template
-    name: "${friendly} - switch 3"
-    restore_state: yes
-    id: switch3
-    optimistic: true
-    icon: mdi:nintendo-switch
+#########################################################
+# USE BELOW WHEN YOU HAVE A 3 BUTTON SWITCH MODULE
+#########################################################
+#   - platform: template
+#     name: "${friendly} - switch 3"
+#     restore_state: yes
+#     id: switch3
+#     optimistic: true
+#     icon: mdi:nintendo-switch
 
+#########################################################
+# USE BELOW WHEN YOU HAVE A 1 BUTTON SWITCH MODULE
+#########################################################
   - platform: gpio
     pin: ${gpio_relay1}
     name: "${friendly} - relay 1"
     icon: mdi:electric-switch
 
-  - platform: gpio
-    pin: ${gpio_relay2}
-    name: "${friendly} - relay 2"
-    icon: mdi:electric-switch
+#########################################################
+# USE BELOW WHEN YOU HAVE A 2 BUTTON SWITCH MODULE
+#########################################################
+#   - platform: gpio
+#     pin: ${gpio_relay2}
+#     name: "${friendly} - relay 2"
+#     icon: mdi:electric-switch
 
-  - platform: gpio
-    pin: ${gpio_relay3}
-    name: "${friendly} - relay 3"
-    icon: mdi:electric-switch
+#########################################################
+# USE BELOW WHEN YOU HAVE A 3 BUTTON SWITCH MODULE
+#########################################################
+#   - platform: gpio
+#     pin: ${gpio_relay3}
+#     name: "${friendly} - relay 3"
+#     icon: mdi:electric-switch
 
 binary_sensor:
+#########################################################
+# USE BELOW WHEN YOU HAVE A 1 BUTTON SWITCH MODULE
+#########################################################
   - platform: gpio
     pin: ${gpio_touch1}
     name: "${friendly} - Touch 1"
@@ -171,19 +201,25 @@ binary_sensor:
     on_press:
       - switch.toggle: switch1
 
-  - platform: gpio
-    pin: ${gpio_touch2}
-    name: "${friendly} - touch 2"
-    icon: mdi:gesture-tap-button
-    on_press:
-      - switch.toggle: switch2
+#########################################################
+# USE BELOW WHEN YOU HAVE A 2 BUTTON SWITCH MODULE
+#########################################################
+#   - platform: gpio
+#     pin: ${gpio_touch2}
+#     name: "${friendly} - touch 2"
+#     icon: mdi:gesture-tap-button
+#     on_press:
+#       - switch.toggle: switch2
 
-  - platform: gpio
-    pin: ${gpio_touch3}
-    name: "${friendly} - touch 3"
-    icon: mdi:gesture-tap-button
-    on_press:
-      - switch.toggle: switch3
+#########################################################
+# USE BELOW WHEN YOU HAVE A 3 BUTTON SWITCH MODULE
+#########################################################
+#   - platform: gpio
+#     pin: ${gpio_touch3}
+#     name: "${friendly} - touch 3"
+#     icon: mdi:gesture-tap-button
+#     on_press:
+#       - switch.toggle: switch3
 
 text_sensor:
   - platform: wifi_info
@@ -204,6 +240,10 @@ text_sensor:
     name: "${friendly} - Version"
     hide_timestamp: true
   
+#########################################################
+# BELOW some sensors thats read info from Home Assistant
+# use can use this in automations inside ESPHome
+#########################################################
   - platform: homeassistant
     name: "Daytime"
     entity_id: input_boolean.scene_daytime
