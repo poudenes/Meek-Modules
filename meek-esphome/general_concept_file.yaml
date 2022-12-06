@@ -1,14 +1,16 @@
 #########################################################
-# Below all fixed settings for bathroom PCB
+# Below all fixed settings for kitchen PCB
 #########################################################
 substitutions:
-  devicename: meek-test
-  friendly: ESPHome test
-  motion_sensor: binary_sensor.bathroom_detection
-  ip: 192.168.100.202
-  neopixel: GPIO02 # (D4)
+  devicename: meek-kitchen
+  friendly: ESPHome kitchen
+  motion_sensor: binary_sensor.kitchen_detection
+  ip: 192.168.100.206
   touch_power: GPIO16 # (D0)
-  gpio_touch1: GPIO12 # (D5)
+  neopixel: GPIO02 #(D4)
+  gpio_touch1: GPIO14 # (D5)
+  gpio_touch2: GPIO12 # (D6)
+  gpio_touch3: GPIO13 # (D7)
   gpio_relay1: GPIO05 # (D1)
   gpio_relay2: GPIO4 # (D2)
   gpio_relay3: GPIO15 # (D8)
@@ -80,49 +82,46 @@ light:
     type: GRB
     variant: 800KBPS
     pin: ${neopixel}
-    num_leds: 1
+    num_leds: 3
     name: "${friendly} - Neopixel"
     restore_mode: ALWAYS_ON
     id: neopixel
 
-#########################################################
-# Only needed when you use more then 1 neopixel
-#########################################################
-  # - platform: partition
-  #   name: "${friendly} partition - neopixel1"
-  #   restore_mode: ALWAYS_ON
-  #   default_transition_length: 0s
-  #   id: neopixel1
-  #   segments:
-  #     - id: neopixel
-  #       from: 0
-  #       to: 0
+  - platform: partition
+    name: "${friendly} partition - neopixel1"
+    restore_mode: ALWAYS_ON
+    default_transition_length: 0s
+    id: neopixel1
+    segments:
+      - id: neopixel
+        from: 0
+        to: 0
   
-  # - platform: partition
-  #   name: "${friendly} partition - neopixel2"
-  #   restore_mode: ALWAYS_ON
-  #   default_transition_length: 0s
-  #   id: neopixel2
-  #   segments:
-  #     - id: neopixel
-  #       from: 1
-  #       to: 1
+  - platform: partition
+    name: "${friendly} partition - neopixel2"
+    restore_mode: ALWAYS_ON
+    default_transition_length: 0s
+    id: neopixel2
+    segments:
+      - id: neopixel
+        from: 1
+        to: 1
 
-  # - platform: partition
-  #   name: "${friendly} partition - neopixel3"
-  #   restore_mode: ALWAYS_ON
-  #   default_transition_length: 0s
-  #   id: neopixel3
-  #   segments:
-  #     - id: neopixel
-  #       from: 2
-  #       to: 2
-#########################################################
+  - platform: partition
+    name: "${friendly} partition - neopixel3"
+    restore_mode: ALWAYS_ON
+    default_transition_length: 0s
+    id: neopixel3
+    segments:
+      - id: neopixel
+        from: 2
+        to: 2
 
 switch:
   - platform: gpio
     pin: ${touch_power}
     name: "${friendly} - Touch 1 power"
+    icon: mdi:electric-switch
     id: touch_power
 
   - platform: safe_mode
@@ -133,335 +132,73 @@ switch:
     restore_state: true
     id: switch1
     optimistic: true
+    icon: mdi:nintendo-switch
 
-#########################################################
-# Only needed when you use more then 1 switch
-#########################################################
-  # - platform: template
-  #   name: "${friendly} - switch 2"
-  #   restore_state: yes
-  #   id: switch2
-  #   optimistic: true
+  - platform: template
+    name: "${friendly} - switch 2"
+    restore_state: yes
+    id: switch2
+    optimistic: true
+    icon: mdi:nintendo-switch
 
-  # - platform: template
-  #   name: "${friendly} - switch 3"
-  #   restore_state: yes
-  #   id: switch3
-  #   optimistic: true
-#########################################################
+  - platform: template
+    name: "${friendly} - switch 3"
+    restore_state: yes
+    id: switch3
+    optimistic: true
+    icon: mdi:nintendo-switch
 
   - platform: gpio
     pin: ${gpio_relay1}
     name: "${friendly} - relay 1"
+    icon: mdi:electric-switch
 
-#########################################################
-# Only needed when you use more then 1 relay
-#########################################################
-  # - platform: gpio
-  #   pin: ${gpio_relay2}
-  #   name: "${friendly} - relay 2"
+  - platform: gpio
+    pin: ${gpio_relay2}
+    name: "${friendly} - relay 2"
+    icon: mdi:electric-switch
 
-  # - platform: gpio
-  #   pin: ${gpio_relay3}
-  #   name: "${friendly} - relay 3"
-#########################################################
+  - platform: gpio
+    pin: ${gpio_relay3}
+    name: "${friendly} - relay 3"
+    icon: mdi:electric-switch
 
 binary_sensor:
   - platform: gpio
     pin: ${gpio_touch1}
     name: "${friendly} - Touch 1"
+    icon: mdi:gesture-tap-button
     on_press:
       - switch.toggle: switch1
-      - if:
-          condition:
-            switch.is_on: switch1
-          then:
-            - if:
-                condition:
-                  lambda: 'return id(goodnight).state == "on";'
-                then:
-                  - light.turn_on: 
-                      id: neopixel
-                      brightness: 20%
-                      red: 0%
-                      green: 100%
-                      blue: 0%
-                else:
-                - light.turn_on: 
-                    id: neopixel
-                    brightness: 100%
-                    red: 0%
-                    green: 100%
-                    blue: 0%
-      - if:
-          condition:
-            switch.is_off: switch1
-          then:
-            - if:
-                condition:
-                  lambda: 'return id(daytime).state == "on";'
-                then:
-                  - light.turn_on: # RED
-                      id: neopixel
-                      brightness: 100%
-                      red: 100%
-                      green: 0%
-                      blue: 0%
-            - if:
-                condition:
-                  lambda: 'return id(goodnight).state == "on";'
-                then:
-                  - light.turn_on: # RED 
-                      id: neopixel
-                      brightness: 20%
-                      red: 100%
-                      green: 0%
-                      blue: 100%
-            - if:
-                condition:
-                  lambda: 'return id(kodi).state == "on";'
-                then:
-                  - light.turn_on: # PINK
-                      id: neopixel
-                      brightness: 100%
-                      red: 100%
-                      green: 0%
-                      blue: 100%
-            - if:
-                condition:
-                  lambda: 'return id(evening).state == "on";'
-                then:
-                  - light.turn_on: # RED
-                      id: neopixel
-                      brightness: 100%
-                      red: 100%
-                      green: 0%
-                      blue: 0%
-            - if:
-                condition:
-                  lambda: 'return id(appletv).state == "on";'
-                then:
-                  - light.turn_on: # YELLOW
-                      id: neopixel
-                      brightness: 100%
-                      red: 100%
-                      green: 100%
-                      blue: 0%
-            - if:
-                condition:
-                  lambda: 'return id(tv).state == "on";'
-                then:
-                  - light.turn_on: # LIGHT BLUE
-                      id: neopixel
-                      brightness: 100%
-                      red: 1%
-                      green: 46%
-                      blue: 99%
-            - if:
-                condition:
-                  lambda: 'return id(nintendo).state == "on";'
-                then:
-                  - light.turn_on: # PURPLE
-                      id: neopixel
-                      brightness: 100%
-                      red: 57%
-                      green: 17%
-                      blue: 93%
 
-#########################################################
-# Only needed when you use more then 1 touch
-#########################################################
-  # - platform: gpio
-  #   pin: ${gpio_touch2}
-  #   name: "${friendly} - touch 2"
-    # on_press:
-    #   - switch.toggle: switch2
-    #   - if:
-    #       condition:
-    #         switch.is_on: switch2
-    #       then:
-    #         - light.turn_on: 
-    #             id: neopixel2
-    #             brightness: 100%
-    #             red: 0%
-    #             green: 100%
-    #             blue: 0%
-    #   - if:
-    #       condition:
-    #         switch.is_off: switch2
-    #       then:
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(daytime).state == "on";'
-    #             then:
-    #               - light.turn_on: # RED
-    #                   id: neopixel2
-    #                   brightness: 100%
-    #                   red: 100%
-    #                   green: 0%
-    #                   blue: 0%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(goodnight).state == "on";'
-    #             then:
-    #               - light.turn_on: # RED 
-    #                   id: neopixel2
-    #                   brightness: 100%
-    #                   red: 10%
-    #                   green: 0%
-    #                   blue: 10%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(kodi).state == "on";'
-    #             then:
-    #               - light.turn_on: # PINK
-    #                   id: neopixel2
-    #                   brightness: 100%
-    #                   red: 100%
-    #                   green: 0%
-    #                   blue: 100%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(evening).state == "on";'
-    #             then:
-    #               - light.turn_on: # RED
-    #                   id: neopixel2
-    #                   brightness: 100%
-    #                   red: 100%
-    #                   green: 0%
-    #                   blue: 0%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(appletv).state == "on";'
-    #             then:
-    #               - light.turn_on: # YELLOW
-    #                   id: neopixel2
-    #                   brightness: 100%
-    #                   red: 100%
-    #                   green: 100%
-    #                   blue: 0%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(tv).state == "on";'
-    #             then:
-    #               - light.turn_on: # LIGHT BLUE
-    #                   id: neopixel2
-    #                   brightness: 100%
-    #                   red: 1%
-    #                   green: 46%
-    #                   blue: 99%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(nintendo).state == "on";'
-    #             then:
-    #               - light.turn_on: # PURPLE
-    #                   id: neopixel2
-    #                   brightness: 100%
-    #                   red: 57%
-    #                   green: 17%
-    #                   blue: 93%
+  - platform: gpio
+    pin: ${gpio_touch2}
+    name: "${friendly} - touch 2"
+    icon: mdi:gesture-tap-button
+    on_press:
+      - switch.toggle: switch2
 
-  # - platform: gpio
-  #   pin: ${gpio_touch3}
-  #   name: "${friendly} - touch 3"
-    # on_press:
-    #   - switch.toggle: switch3
-    #   - if:
-    #       condition:
-    #         switch.is_on: switch3
-    #       then:
-    #         - light.turn_on: 
-    #             id: neopixel3
-    #             brightness: 100%
-    #             red: 0%
-    #             green: 100%
-    #             blue: 0%
-    #   - if:
-    #       condition:
-    #         switch.is_off: switch3
-    #       then:
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(daytime).state == "on";'
-    #             then:
-    #               - light.turn_on: # RED
-    #                   id: neopixel3
-    #                   brightness: 100%
-    #                   red: 100%
-    #                   green: 0%
-    #                   blue: 0%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(goodnight).state == "on";'
-    #             then:
-    #               - light.turn_on: # RED 
-    #                   id: neopixel3
-    #                   brightness: 100%
-    #                   red: 10%
-    #                   green: 0%
-    #                   blue: 10%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(kodi).state == "on";'
-    #             then:
-    #               - light.turn_on: # PINK
-    #                   id: neopixel3
-    #                   brightness: 100%
-    #                   red: 100%
-    #                   green: 0%
-    #                   blue: 100%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(evening).state == "on";'
-    #             then:
-    #               - light.turn_on: # RED
-    #                   id: neopixel3
-    #                   brightness: 100%
-    #                   red: 100%
-    #                   green: 0%
-    #                   blue: 0%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(appletv).state == "on";'
-    #             then:
-    #               - light.turn_on: # YELLOW
-    #                   id: neopixel3
-    #                   brightness: 100%
-    #                   red: 100%
-    #                   green: 100%
-    #                   blue: 0%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(tv).state == "on";'
-    #             then:
-    #               - light.turn_on: # LIGHT BLUE
-    #                   id: neopixel3
-    #                   brightness: 100%
-    #                   red: 1%
-    #                   green: 46%
-    #                   blue: 99%
-    #         - if:
-    #             condition:
-    #               lambda: 'return id(nintendo).state == "on";'
-    #             then:
-    #               - light.turn_on: # PURPLE
-    #                   id: neopixel3
-    #                   brightness: 100%
-    #                   red: 57%
-    #                   green: 17%
-    #                   blue: 93%
-#########################################################
+  - platform: gpio
+    pin: ${gpio_touch3}
+    name: "${friendly} - touch 3"
+    icon: mdi:gesture-tap-button
+    on_press:
+      - switch.toggle: switch3
 
 text_sensor:
   - platform: wifi_info
     ip_address:
       name: "${friendly} - ip"
+      icon: mdi:lan
     ssid:
       name: "${friendly} - ssid"
+      icon: mdi:lan
     bssid:
       name: "${friendly} - bssid"
+      icon: mdi:lan
     mac_address:
       name: "${friendly} - mac"
+      icon: mdi:lan
 
   - platform: version
     name: "${friendly} - Version"
@@ -469,7 +206,7 @@ text_sensor:
   
   - platform: homeassistant
     name: "Daytime"
-    entity_id: switch.scene_daytime
+    entity_id: input_boolean.scene_daytime
     id: "daytime"
     on_value:
       - if:
@@ -485,7 +222,7 @@ text_sensor:
 
   - platform: homeassistant
     name: "Evening"
-    entity_id: switch.scene_evening
+    entity_id: input_boolean.scene_evening
     id: "evening"
     on_value:
       then:
@@ -502,7 +239,7 @@ text_sensor:
 
   - platform: homeassistant
     name: "TV"
-    entity_id: switch.scene_tv
+    entity_id: input_boolean.scene_tv
     id: "tv"
     on_value:
       then:
@@ -519,7 +256,7 @@ text_sensor:
 
   - platform: homeassistant
     name: "AppleTV"
-    entity_id: switch.scene_appletv
+    entity_id: input_boolean.scene_appletv
     id: "appletv"
     on_value:
       then:
@@ -536,7 +273,7 @@ text_sensor:
 
   - platform: homeassistant
     name: "Kodi"
-    entity_id: switch.scene_kodi
+    entity_id: input_boolean.scene_kodi
     id: "kodi"
     on_value:
       then:
@@ -553,7 +290,7 @@ text_sensor:
 
   - platform: homeassistant
     name: "Nintendo"
-    entity_id: switch.scene_nintendo
+    entity_id: input_boolean.scene_nintendo
     id: "nintendo"
     on_value:
       then:
@@ -570,7 +307,7 @@ text_sensor:
 
   - platform: homeassistant
     name: "Goodnight"
-    entity_id: switch.scene_goodnight
+    entity_id: input_boolean.scene_goodnight
     id: "goodnight"
     on_value:
       then:
@@ -584,110 +321,3 @@ text_sensor:
                   red: 100%
                   green: 0%
                   blue: 0%
-
-
-#########################################################
-# Specific settings for bathtoom.
-# All modules have their specific settings below here.
-#########################################################
-  - platform: homeassistant
-    name: "Motion"
-    entity_id: ${motion_sensor}
-    id: "motion"
-    on_value:
-      then:
-        - if:
-            condition:
-              lambda: 'return id(motion).state == "on";'
-            then:
-              - if:
-                  condition:
-                    lambda: 'return id(goodnight).state == "on";'
-                  then:
-                    - light.turn_on: # BLUE
-                        id: neopixel
-                        brightness: 20%
-                        red: 0%
-                        green: 0%
-                        blue: 100%
-                  else:
-                  - light.turn_on: # BLUE
-                      id: neopixel
-                      brightness: 100%
-                      red: 0%
-                      green: 0%
-                      blue: 100%
-        - if:
-            condition:
-              lambda: 'return id(motion).state == "off";'
-            then:
-              - if:
-                  condition:
-                    lambda: 'return id(daytime).state == "on";'
-                  then:
-                    - light.turn_on: # RED
-                        id: neopixel
-                        brightness: 100%
-                        red: 100%
-                        green: 0%
-                        blue: 0%
-              - if:
-                  condition:
-                    lambda: 'return id(goodnight).state == "on";'
-                  then:
-                    - light.turn_on: # RED 
-                        id: neopixel
-                        brightness: 20%
-                        red: 100%
-                        green: 0%
-                        blue: 100%
-              - if:
-                  condition:
-                    lambda: 'return id(kodi).state == "on";'
-                  then:
-                    - light.turn_on: # PINK
-                        id: neopixel
-                        brightness: 100%
-                        red: 100%
-                        green: 0%
-                        blue: 100%
-              - if:
-                  condition:
-                    lambda: 'return id(evening).state == "on";'
-                  then:
-                    - light.turn_on: # RED
-                        id: neopixel
-                        brightness: 100%
-                        red: 100%
-                        green: 0%
-                        blue: 0%
-              - if:
-                  condition:
-                    lambda: 'return id(appletv).state == "on";'
-                  then:
-                    - light.turn_on: # YELLOW
-                        id: neopixel
-                        brightness: 100%
-                        red: 100%
-                        green: 100%
-                        blue: 0%
-              - if:
-                  condition:
-                    lambda: 'return id(tv).state == "on";'
-                  then:
-                    - light.turn_on: # LIGHT BLUE
-                        id: neopixel
-                        brightness: 100%
-                        red: 1%
-                        green: 46%
-                        blue: 99%
-              - if:
-                  condition:
-                    lambda: 'return id(nintendo).state == "on";'
-                  then:
-                    - light.turn_on: # PURPLE
-                        id: neopixel
-                        brightness: 100%
-                        red: 57%
-                        green: 17%
-                        blue: 93%
