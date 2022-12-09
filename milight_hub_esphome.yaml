@@ -2,7 +2,7 @@
 # Below all fixed settings for Milight PCB
 #########################################################
 substitutions:
-  devicename: milight-hub-test
+  devicename: milight-hub-esphome
   friendly: Milight Hub
   ip: 192.168.100.210
 #########################################################
@@ -10,20 +10,20 @@ mi:
   ce_pin: 21
   csn_pin: 22
   reset_pin: 0
-  listen_repeats: 3
-  state_flush_interval: 0
-  packet_repeats: 26 # 25
-  packet_repeats_per_loop: 26 # 25
+  listen_repeats: 1
+  state_flush_interval: 5000
+  packet_repeats: 25
+  packet_repeats_per_loop: 25
   packet_repeat_throttle_threshold: 0
-  packet_repeat_throttle_sensitivity: 13 # 10
-  packet_repeat_minimum: 13
+  packet_repeat_throttle_sensitivity: 0
+  packet_repeat_minimum: 1
 #########################################################
 # BELOW HAVE FOR NOW BEST RESULT
 #########################################################
 # listen_repeats: 3
 # state_flush_interval: 0s
 # packet_repeats: 25
-# packet_repeats_per_loop: 25 # 25
+# packet_repeats_per_loop: 25
 # packet_repeat_throttle_threshold: 0
 # packet_repeat_throttle_sensitivity: 10
 # packet_repeat_minimum: 15
@@ -53,14 +53,18 @@ mi:
     - MID
     - HIGH
   enable_automatic_mode_switching: false  
-  on_command_received:
-    - homeassistant.event:
-        event: esphome.mi_command_received
-        data:
-          device_id: !lambda 'return format_hex(data.device_id);'
-          group_id: !lambda 'return data.group_id;'
-          remote_type: !lambda 'return data.remote_type.c_str();'
-          command: !lambda 'return data.command.c_str();'
+
+#########################################################
+# Only needed when you use remotes as well
+#########################################################
+  # on_command_received:
+  #   - homeassistant.event:
+  #       event: esphome.mi_command_received
+  #       data:
+  #         device_id: !lambda 'return format_hex(data.device_id);'
+  #         group_id: !lambda 'return data.group_id;'
+  #         remote_type: !lambda 'return data.remote_type.c_str();'
+  #         command: !lambda 'return data.command.c_str();'
 #########################################################
 esphome:
   name: ${devicename}
@@ -204,7 +208,7 @@ light:
 #########################################################
   - platform: mi
     id: seeling1
-    name: "Seeling 1 test"
+    name: "Kitchen 1 test"
     device_id: 0xAAA2
     group_id: 1
     remote_type: rgb_cct
@@ -212,7 +216,7 @@ light:
 
   - platform: mi
     id: seeling2
-    name: "Seeling 2 test"
+    name: "Kitchen 2 test"
     device_id: 0xAAA2
     group_id: 2
     remote_type: rgb_cct
@@ -220,7 +224,7 @@ light:
 
   - platform: mi
     id: seeling3
-    name: "Seeling 3 test"
+    name: "Kitchen 3 test"
     device_id: 0xAAA2
     group_id: 3
     remote_type: rgb_cct
@@ -228,7 +232,7 @@ light:
 
   - platform: mi
     id: seeling_all
-    name: "Seeling all test"
+    name: "Kitchen all test"
     device_id: 0xAAA2
     group_id: 0
     remote_type: rgb_cct
@@ -366,7 +370,7 @@ light:
 #########################################################
   - platform: mi
     id: livingroom1
-    name: "Wall R  test"
+    name: "Livingroom 1 test"
     device_id: 0xAAAC
     group_id: 1
     remote_type: rgb_cct
@@ -374,7 +378,7 @@ light:
 
   - platform: mi
     id: livingroom2
-    name: "Wall L  test"
+    name: "Livingroom 2 test"
     device_id: 0xAAAC
     group_id: 2
     remote_type: rgb_cct
@@ -382,7 +386,7 @@ light:
 
   - platform: mi
     id: livingroom3
-    name: "Window R test"
+    name: "Livingroom 3 test"
     device_id: 0xAAAC
     group_id: 3
     remote_type: rgb_cct
@@ -390,7 +394,7 @@ light:
 
   - platform: mi
     id: livingroom4
-    name: "Windows L  test"
+    name: "Livingroom 4 test"
     device_id: 0xAAAC
     group_id: 4
     remote_type: rgb_cct
